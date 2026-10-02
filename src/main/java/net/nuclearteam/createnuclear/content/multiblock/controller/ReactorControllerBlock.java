@@ -77,6 +77,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                     be.configuredPattern = heldItem;
 
                     player.setItemInHand(hand, ItemStack.EMPTY);
+                    // the original inventory was a Create SmartInventory, which synced the block entity on every change
+                    be.notifyUpdate();
                 });
                 return InteractionResult.SUCCESS;
 

@@ -77,3 +77,19 @@ shot
 cmd tp @a 17.5 201 5 0 10
 sleep 4
 shot
+cmd item replace entity @a hotbar.0 with createnuclear:reactor_controller
+key e
+sleep 3
+click 817 244
+sleep 2
+shot
+move 478 464
+sleep 1
+keydown w
+sleep 3
+keyup w
+sleep 5
+shot
+sleep 6
+shot
+key Escape
