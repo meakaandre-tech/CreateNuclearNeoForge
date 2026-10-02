@@ -115,7 +115,7 @@ jobs:
                 sudo apt-get install -y -q xvfb xdotool imagemagick libgl1-mesa-dri >/dev/null 2>&1
                 mkdir -p run/mods
                 cp libs/create-fly-26.2.jar run/mods/
-                printf 'pauseOnLostFocus:false\nonboardAccessibility:false\ntutorialStep:none\nnarrator:0\nrenderDistance:5\nmaxFps:30\nsoundCategory_master:0.0\n' > run/options.txt
+                printf 'pauseOnLostFocus:false\nonboardAccessibility:false\ntutorialStep:none\nnarrator:0\nrenderDistance:5\nguiScale:2\nmaxFps:30\nsoundCategory_master:0.0\n' > run/options.txt
                 export LIBGL_ALWAYS_SOFTWARE=1
                 Xvfb :99 -screen 0 1280x720x24 >/dev/null 2>&1 &
                 export DISPLAY=:99
@@ -141,8 +141,8 @@ jobs:
                         sleep) sleep "$arg";;
                         shot) shot;;
                         move) xdotool mousemove $arg;;
-                        click) xdotool mousemove $arg click 1;;
-                        rclick) xdotool mousemove $arg click 3;;
+                        click) xdotool mousemove $arg; sleep 0.3; xdotool click 1; sleep 0.4;;
+                        rclick) xdotool mousemove $arg; sleep 0.3; xdotool click 3; sleep 0.4;;
                       esac
                     done < .github/smoke-script.txt
                   else

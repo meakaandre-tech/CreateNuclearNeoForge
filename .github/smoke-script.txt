@@ -1,41 +1,77 @@
 cmd tp @a 5.5 200 -7.5 0 5
 sleep 5
 shot
-cmd tp @a 14 201 3.5 0 0
-sleep 5
-shot
-cmd tp @a 3.5 200 -1.5 0 25
-sleep 4
-rclick 640 360
-sleep 3
-shot
-key Escape
-sleep 1
-cmd item replace entity @a armor.head with create:goggles
-cmd tp @a 0.5 200 -1.5 0 25
-sleep 4
-shot
-cmd tp @a 2.5 200 -1.5 0 25
-sleep 4
-shot
+cmd setblock 26 203 2 createnuclear:reactor_controller
+sleep 2
+cmd execute if block 26 203 2 createnuclear:reactor_controller[assembled=true]
 cmd item replace entity @a hotbar.0 with createnuclear:reactor_blueprint_item
+cmd item replace entity @a hotbar.1 with createnuclear:uranium_rod 16
+cmd item replace entity @a hotbar.2 with createnuclear:graphite_rod 16
 cmd tp @a 5.5 200 -7.5 0 -60
+key 1
 sleep 3
 rclick 640 360
 sleep 3
+click 532 652
+click 640 308
+click 604 308
+click 676 308
+click 640 272
+click 532 652
+click 568 652
+click 640 344
+click 604 272
+click 676 272
+click 604 344
+click 676 344
+click 568 652
+sleep 1
 shot
 key Escape
-sleep 1
-cmd item replace entity @a hotbar.0 with minecraft:air
-cmd item replace entity @a armor.head with createnuclear:white_anti_radiation_helmet
-cmd tp @a 5.5 200 -7.5 0 5
+sleep 2
+cmd data get entity @p SelectedItem
+cmd tp @a 20.5 202 2.5 -90 0
+sleep 4
+rclick 640 360
 sleep 3
+click 533 497
+click 607 245
+click 569 497
+click 673 245
+sleep 1
 shot
-cmd item replace entity @a armor.head with minecraft:air
-cmd effect give @a createnuclear:radiation 30 0
+key Escape
+sleep 2
+cmd data get block 22 203 2
+cmd tp @a 28.5 202 2.5 90 0
 sleep 4
 shot
-cmd effect clear @a
-key e
+rclick 640 360
+sleep 6
+cmd data get block 26 203 2
+cmd data get block 26 200 2
+cmd execute if block 26 203 2 createnuclear:reactor_controller[assembled=true]
+cmd item replace entity @a armor.head with create:goggles
 sleep 3
+shot
+cmd tp @a 28.5 202 2.5 90 64
+sleep 4
+shot
+cmd data get block 26 200 2
+cmd data get block 22 203 2
+cmd item replace entity @a armor.head with minecraft:air
+cmd item replace entity @a hotbar.0 with createnuclear:wolf_irradiated_spawn_egg
+cmd item replace entity @a hotbar.1 with createnuclear:cat_irradiated_spawn_egg
+cmd item replace entity @a hotbar.2 with createnuclear:chicken_irradiated_spawn_egg
+cmd item replace entity @a hotbar.3 with createnuclear:white_anti_radiation_helmet
+cmd item replace entity @a hotbar.4 with createnuclear:red_cloth
+cmd item replace entity @a hotbar.5 with createnuclear:uranium_bucket
+cmd item replace entity @a hotbar.6 with createnuclear:reactor_output
+cmd item replace entity @a hotbar.7 with createnuclear:cut_autunite_brick_stairs
+cmd item replace entity @a hotbar.8 with createnuclear:reactor_frame
+cmd tp @a 14 201 3.5 0 0
+sleep 4
+shot
+cmd tp @a 17.5 201 5 0 10
+sleep 4
 shot

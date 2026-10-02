@@ -62,6 +62,20 @@ fill 12 200 11 15 203 11 createnuclear:reactor_casing
 setblock 14 201 11 minecraft:air
 fill 17 200 8 17 203 8 createnuclear:autunite_pillar
 fill 17 200 11 18 201 11 createnuclear:layered_autunite
+fill 22 200 0 26 206 4 createnuclear:reactor_casing
+fill 22 201 2 22 205 2 createnuclear:reactor_frame
+fill 26 201 2 26 205 2 createnuclear:reactor_frame
+fill 24 201 0 24 205 0 createnuclear:reactor_frame
+fill 24 201 4 24 205 4 createnuclear:reactor_frame
+fill 23 201 1 23 205 1 createnuclear:reactor_cooler
+fill 23 201 3 23 205 3 createnuclear:reactor_cooler
+fill 25 201 1 25 205 1 createnuclear:reactor_cooler
+fill 25 201 3 25 205 3 createnuclear:reactor_cooler
+fill 24 201 2 24 205 2 createnuclear:reactor_core
+setblock 22 203 2 createnuclear:reactor_input
+setblock 26 200 2 createnuclear:reactor_output
+setblock 20 201 2 minecraft:stone
+setblock 28 201 2 minecraft:stone
 tick sprint 600
 execute if block 14 200 4 createnuclear:autunite
 execute if entity @e[type=minecraft:item,nbt={Item:{id:"createnuclear:enriched_yellowcake"}}]
