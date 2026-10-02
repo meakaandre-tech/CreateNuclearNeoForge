@@ -97,6 +97,7 @@
   "createnuclear.enriched.fan.recipe": "Bulk Enriching",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Heat value",
+  "createnuclear.kinetics.reactor_output.rotation_speed": "Generated Speed",
   "createnuclear.ponder.reactor.header": "Construction of the reactor",
   "createnuclear.ponder.reactor.text_1": "Floor 1",
   "createnuclear.ponder.reactor.text_10": "Floor 7",
