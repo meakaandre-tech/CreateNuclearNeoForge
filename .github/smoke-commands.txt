@@ -5,7 +5,7 @@ time set noon
 forceload add -16 -16 31 31
 fill -6 199 -12 18 199 14 minecraft:stone
 fill -6 200 -12 18 215 14 minecraft:air
-setworldspawn 5 200 -7 0
+setworldspawn 5 200 -7 0 0
 setblock 0 200 0 createnuclear:reactor_controller
 setblock 1 200 0 createnuclear:reactor_core
 setblock 2 200 0 createnuclear:reactor_output

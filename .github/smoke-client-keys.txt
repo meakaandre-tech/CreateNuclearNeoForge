@@ -1,0 +1,74 @@
+key t
+sleep 1
+type /tp @s 5.5 200 -7.5 0 5
+key Return
+sleep 4
+shot
+key t
+sleep 1
+type /tp @s 5.5 201 4 180 20
+key Return
+sleep 4
+shot
+key t
+sleep 1
+type /tp @s 3.5 200 -1.5 0 25
+key Return
+sleep 3
+rclick 640 360
+sleep 3
+shot
+key Escape
+sleep 1
+key t
+sleep 1
+type /item replace entity @s armor.head with create:goggles
+key Return
+sleep 1
+key t
+sleep 1
+type /tp @s 0.5 200 -1.5 0 25
+key Return
+sleep 3
+shot
+key t
+sleep 1
+type /tp @s 2.5 200 -1.5 0 25
+key Return
+sleep 3
+shot
+key t
+sleep 1
+type /give @s createnuclear:reactor_blueprint_item
+key Return
+sleep 1
+key t
+sleep 1
+type /tp @s 5.5 200 -7.5 0 -60
+key Return
+sleep 2
+rclick 640 360
+sleep 3
+shot
+key Escape
+sleep 1
+key t
+sleep 1
+type /item replace entity @s armor.head with createnuclear:white_anti_radiation_helmet
+key Return
+sleep 2
+shot
+key t
+sleep 1
+type /item replace entity @s armor.head with minecraft:air
+key Return
+sleep 1
+key t
+sleep 1
+type /effect give @s createnuclear:radiation 30 0
+key Return
+sleep 3
+shot
+key e
+sleep 3
+shot
