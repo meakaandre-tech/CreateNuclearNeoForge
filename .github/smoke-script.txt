@@ -31,6 +31,7 @@ key Escape
 sleep 2
 cmd data get entity @p SelectedItem
 cmd tp @a 20.5 202 2.5 -90 0
+key 2
 sleep 4
 rclick 640 360
 sleep 3
@@ -44,10 +45,11 @@ key Escape
 sleep 2
 cmd data get block 22 203 2
 cmd tp @a 28.5 202 2.5 90 0
+key 1
 sleep 4
 shot
 rclick 640 360
-sleep 6
+sleep 8
 cmd data get block 26 203 2
 cmd data get block 26 200 2
 cmd execute if block 26 203 2 createnuclear:reactor_controller[assembled=true]
