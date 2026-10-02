@@ -105,7 +105,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
 
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return net.minecraft.world.entity.animal.Animal.createAnimalAttributes()
                 .add(Attributes.MOVEMENT_SPEED, (double)0.3F)
                 .add(Attributes.MAX_HEALTH, (double)8.0F)
                 .add(Attributes.ATTACK_DAMAGE, (double)4.0F);

@@ -57,7 +57,7 @@ public class IrradiatedChicken extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return net.minecraft.world.entity.animal.Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, (double)4.0F)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.25F);
     }
