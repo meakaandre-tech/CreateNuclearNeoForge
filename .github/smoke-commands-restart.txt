@@ -1,0 +1,12 @@
+forceload query
+data get block 26 203 2 inventory
+data get block 26 203 2 heat
+data get block 22 203 2
+data get block 26 200 2
+execute if block 26 203 2 createnuclear:reactor_controller[assembled=true]
+execute if entity @e[type=createnuclear:irradiated_wolf]
+execute if entity @e[type=createnuclear:irradiated_cat]
+execute if entity @e[type=createnuclear:irradiated_chicken]
+data get entity @e[type=minecraft:armor_stand,limit=1] equipment
+tick sprint 200
+data get block 26 200 2 Speed
