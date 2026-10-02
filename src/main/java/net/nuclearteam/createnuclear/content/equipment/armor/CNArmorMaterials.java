@@ -21,7 +21,7 @@ import java.util.Map;
  * material's equipment asset, so there is one material per suit colour (the original passed a texture per item).
  */
 public class CNArmorMaterials {
-    /** Items that repair the suit: the lead ingot, as the original material's repair ingredient. */
+    /** Items that repair the suit: #c:ingots/lead (the original material's repair ingredient was the mod's own lead ingot). */
     public static final TagKey<Item> REPAIRS_ANTI_RADIATION_SUIT =
             CNTags.optionalTag(net.minecraft.core.registries.BuiltInRegistries.ITEM, CreateNuclear.asResource("repairs_anti_radiation_suit"));
 

@@ -1,5 +1,4 @@
 {
-  "values": [
-    "createnuclear:steel_ingot"
-  ]
+  "replace": false,
+  "values": []
 }

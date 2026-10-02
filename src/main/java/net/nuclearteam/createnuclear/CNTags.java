@@ -72,8 +72,7 @@ public class CNTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched"),
         ENRICHING_FIRE_BASE_BLOCKS,
         ALL_CAMPFIRES(MINECRAFT, "all/campfires"),
-        URANIUM_ORES,
-        LEAD_ORES
+        URANIUM_ORES
         ;
 
         public final TagKey<Block> tag;
@@ -121,7 +120,6 @@ public class CNTags {
         FUEL,
         COOLER,
         URANIUM_ORES,
-        LEAD_ORES,
         ANTI_RADIATION_HELMET_DYE,
         ANTI_RADIATION_CHESTPLATE_DYE,
         ANTI_RADIATION_LEGGINGS_DYE,

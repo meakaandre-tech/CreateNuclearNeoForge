@@ -41,25 +41,15 @@ public class CNItems {
                         .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(CNEffects.RADIATION, 600, 2), 1.0F))
                         .build()))),
 
-        RAW_LEAD = item("raw_lead", Item::new),
-
         RAW_URANIUM = item("raw_uranium", Item::new),
 
         URANIUM_POWDER = item("uranium_powder", Item::new),
-
-        STEEL_INGOT = item("steel_ingot", Item::new),
 
         COAL_DUST = item("coal_dust", Item::new),
 
         GRAPHITE_ROD = item("graphite_rod", Item::new),
 
-        LEAD_INGOT = item("lead_ingot", Item::new),
-
-        STEEL_NUGGET = item("steel_nugget", Item::new),
-
         URANIUM_ROD = item("uranium_rod", Item::new),
-
-        LEAD_NUGGET = item("lead_nugget", Item::new),
 
         GRAPHENE = item("graphene", Item::new),
 

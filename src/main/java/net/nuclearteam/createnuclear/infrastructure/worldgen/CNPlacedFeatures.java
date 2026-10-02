@@ -16,7 +16,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class CNPlacedFeatures {
     public static final ResourceKey<PlacedFeature>
         URANIUM_ORE = key("uranium_ore"),
-        LEAD_ORE = key("lead_ore"),
         STRIATED_ORES_OVERWORLD = key("striated_ores_overworld")
     ;
 
@@ -27,7 +26,7 @@ public class CNPlacedFeatures {
     public static void register() {
         // #minecraft:is_overworld as in the original biome modifier, plus every biome the overworld dimension actually
         // generates: world generation packs that replace the overworld (Still Life) leave many of their biomes out of the tag
-        for (ResourceKey<PlacedFeature> feature : new ResourceKey[]{URANIUM_ORE, LEAD_ORE, STRIATED_ORES_OVERWORLD})
+        for (ResourceKey<PlacedFeature> feature : new ResourceKey[]{URANIUM_ORE, STRIATED_ORES_OVERWORLD})
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD).or(BiomeSelectors.foundInOverworld()),
                     GenerationStep.Decoration.UNDERGROUND_ORES, feature);
     }

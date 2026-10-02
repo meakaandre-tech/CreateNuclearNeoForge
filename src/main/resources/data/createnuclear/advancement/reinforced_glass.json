@@ -1,5 +1,5 @@
 {
-  "parent": "createnuclear:lead_ingot",
+  "parent": "createnuclear:root",
   "criteria": {
     "0": {
       "conditions": {

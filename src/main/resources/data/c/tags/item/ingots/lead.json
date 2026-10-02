@@ -1,5 +1,4 @@
 {
-  "values": [
-    "createnuclear:lead_ingot"
-  ]
+  "replace": false,
+  "values": []
 }

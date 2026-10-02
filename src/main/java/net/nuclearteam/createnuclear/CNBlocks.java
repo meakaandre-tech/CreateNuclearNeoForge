@@ -82,16 +82,7 @@ public class CNBlocks {
                     .noOcclusion()
                     .ignitedByLava(), BlockItem::new);
 
-    public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE = block("deepslate_lead_ore", Block::new,
-            () -> Properties.ofFullCopy(Blocks.DIAMOND_ORE), BlockItem::new);
-
-    public static final BlockEntry<Block> LEAD_ORE = block("lead_ore", Block::new, CNBlocks::stone, BlockItem::new);
-
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK = block("raw_uranium_block", Block::new, CNBlocks::stone, BlockItem::new);
-
-    public static final BlockEntry<Block> RAW_LEAD_BLOCK = block("raw_lead_block", Block::new, CNBlocks::stone, BlockItem::new);
-
-    public static final BlockEntry<Block> LEAD_BLOCK = block("lead_block", Block::new, CNBlocks::stone, BlockItem::new);
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL = block("enriched_soul_soil", Block::new,
             () -> Properties.ofFullCopy(Blocks.SOUL_SOIL), BlockItem::new);
@@ -101,8 +92,6 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE = block("uranium_ore", UraniumOreBlock::new,
             () -> UraniumOreBlock.litBlockEmission(stone()), BlockItem::new);
-
-    public static final BlockEntry<Block> STEEL_BLOCK = block("steel_block", Block::new, CNBlocks::stone, BlockItem::new);
 
     public static <T extends Block> BlockEntry<T> block(
             String name,

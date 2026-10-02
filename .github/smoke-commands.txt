@@ -19,8 +19,6 @@ setblock 8 201 0 createnuclear:enriching_fire
 setblock 9 200 0 createnuclear:reinforced_glass
 setblock 10 200 0 createnuclear:uranium_ore
 setblock 0 201 1 createnuclear:deepslate_uranium_ore
-setblock 1 201 1 createnuclear:lead_ore
-setblock 2 201 1 createnuclear:steel_block
 setblock 3 201 1 createnuclear:autunite
 setblock 4 201 1 createnuclear:layered_autunite
 setblock 5 201 1 createnuclear:cut_autunite_brick_stairs
@@ -53,7 +51,6 @@ summon minecraft:cow -3 200 -3 {NoAI:1b}
 summon minecraft:armor_stand 9 200 -3 {Rotation:[180f,0f],equipment:{head:{id:"createnuclear:white_anti_radiation_helmet"},chest:{id:"createnuclear:red_anti_radiation_chestplate"},legs:{id:"createnuclear:blue_anti_radiation_leggings"},feet:{id:"createnuclear:anti_radiation_boots"}}}
 effect give @e[type=minecraft:cow] createnuclear:radiation 60 0
 place feature createnuclear:uranium_ore 0 20 0
-place feature createnuclear:lead_ore 0 30 0
 place feature createnuclear:striated_ores_overworld 0 10 0
 loot spawn 0 210 0 loot createnuclear:blocks/uranium_ore
 fill 12 200 8 15 203 8 createnuclear:reinforced_glass
