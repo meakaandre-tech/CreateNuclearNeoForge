@@ -1,0 +1,35 @@
+forceload add -16 -16 31 31
+fill -2 199 -2 12 199 12 minecraft:stone
+setblock 0 200 0 createnuclear:reactor_controller
+setblock 1 200 0 createnuclear:reactor_core
+setblock 2 200 0 createnuclear:reactor_output
+setblock 3 200 0 createnuclear:reactor_input
+setblock 4 200 0 createnuclear:reactor_casing
+setblock 5 200 0 createnuclear:reactor_frame
+setblock 6 200 0 createnuclear:reactor_cooler
+setblock 7 200 0 createnuclear:enriching_campfire
+setblock 8 200 0 createnuclear:enriched_soul_soil
+setblock 8 201 0 createnuclear:enriching_fire
+setblock 9 200 0 createnuclear:reinforced_glass
+setblock 10 200 0 createnuclear:uranium_ore
+setblock 0 200 3 createnuclear:uranium
+setblock 2 200 3 minecraft:water
+setblock 5 200 3 createnuclear:cut_autunite_brick_stairs
+setblock 6 200 3 createnuclear:autunite_pillar
+data get block 0 200 0
+data get block 2 200 0
+data get block 3 200 0
+data get block 7 200 0
+summon createnuclear:irradiated_wolf 0 201 8
+summon createnuclear:irradiated_cat 2 201 8
+summon createnuclear:irradiated_chicken 4 201 8
+summon minecraft:cow 0 201 3
+summon minecraft:item 8 202 0 {Item:{id:"createnuclear:yellowcake",count:1}}
+effect give @e[type=minecraft:cow] createnuclear:radiation 20 1
+place feature createnuclear:uranium_ore 0 20 0
+place feature createnuclear:lead_ore 0 30 0
+place feature createnuclear:striated_ores_overworld 0 10 0
+loot spawn 0 210 0 loot createnuclear:blocks/uranium_ore
+loot spawn 0 210 0 loot createnuclear:blocks/cut_autunite_slab
+item replace entity @e[type=minecraft:cow,limit=1] armor.head with createnuclear:white_anti_radiation_helmet
+tick sprint 200

@@ -6,7 +6,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "createnuclear:textures/block/steel_block.png",
+    "background": "createnuclear:block/steel_block",
     "description": {
       "color": "#DBA213",
       "translate": "advancement.createnuclear.root.desc"

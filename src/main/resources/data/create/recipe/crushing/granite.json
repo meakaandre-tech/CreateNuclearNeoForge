@@ -1,15 +1,11 @@
 {
   "type": "create:crushing",
-  "ingredients": [
-    {
-      "item": "minecraft:granite"
-    }
-  ],
+  "ingredient": "minecraft:granite",
   "processing_time": 250,
   "results": [
     {
-      "chance": 0.5,
-      "id": "createnuclear:uranium_powder"
+      "id": "createnuclear:uranium_powder",
+      "chance": 0.5
     },
     {
       "id": "minecraft:red_sand"

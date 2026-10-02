@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "tag": "createnuclear:uranium_ores"
-  },
+  "ingredient": "#createnuclear:uranium_ores",
   "result": {
     "count": 1,
     "id": "createnuclear:raw_uranium"

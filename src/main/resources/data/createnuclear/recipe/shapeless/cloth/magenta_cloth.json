@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "tag": "createnuclear:cloth"
-    },
-    {
-      "item": "minecraft:magenta_dye"
-    }
+    "#createnuclear:cloth",
+    "minecraft:magenta_dye"
   ],
   "result": {
     "count": 1,

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "createnuclear:gray_anti_radiation_suit"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "createnuclear:gray_anti_radiation_suit"
+      }
+    ]
+  }
+}

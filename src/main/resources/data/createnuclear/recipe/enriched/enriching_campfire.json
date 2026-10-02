@@ -1,10 +1,6 @@
 {
   "type": "createnuclear:enriched",
-  "ingredients": [
-    {
-      "item": "minecraft:campfire"
-    }
-  ],
+  "ingredient": "minecraft:campfire",
   "results": [
     {
       "id": "createnuclear:enriching_campfire"

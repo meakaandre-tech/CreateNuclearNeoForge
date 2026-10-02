@@ -1,13 +1,7 @@
 {
   "type": "create:item_application",
-  "ingredients": [
-    {
-      "item": "createnuclear:reactor_casing"
-    },
-    {
-      "item": "minecraft:hopper"
-    }
-  ],
+  "target": "createnuclear:reactor_casing",
+  "ingredient": "minecraft:hopper",
   "results": [
     {
       "id": "createnuclear:reactor_input"

@@ -1,15 +1,11 @@
 {
   "type": "create:crushing",
-  "ingredients": [
-    {
-      "tag": "minecraft:coals"
-    }
-  ],
+  "ingredient": "#minecraft:coals",
   "processing_time": 250,
   "results": [
     {
-      "chance": 0.5,
-      "id": "createnuclear:coal_dust"
+      "id": "createnuclear:coal_dust",
+      "chance": 0.5
     }
   ]
 }

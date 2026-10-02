@@ -1,13 +1,7 @@
 {
   "type": "create:item_application",
-  "ingredients": [
-    {
-      "item": "createnuclear:reactor_casing"
-    },
-    {
-      "item": "create:shaft"
-    }
-  ],
+  "target": "createnuclear:reactor_casing",
+  "ingredient": "create:shaft",
   "results": [
     {
       "id": "createnuclear:reactor_output"

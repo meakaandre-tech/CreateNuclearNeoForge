@@ -1,10 +1,6 @@
 {
   "type": "create:pressing",
-  "ingredients": [
-    {
-      "tag": "c:dusts/coal"
-    }
-  ],
+  "ingredient": "#c:dusts/coal",
   "results": [
     {
       "id": "createnuclear:graphene"

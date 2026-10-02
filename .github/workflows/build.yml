@@ -76,6 +76,40 @@ jobs:
             done
             (cd /tmp/ci-data && tar czf /tmp/ci/data.tar.gz . ) || true
           fi
+      - name: Dedicated server smoke test
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p /tmp/ci
+          if [ -f .github/smoke-test ] && ls build/libs/*.jar >/dev/null 2>&1; then
+            mkdir -p server/mods && cd server
+            inst=$(curl -fsSL https://meta.fabricmc.net/v2/versions/installer | python3 -c "import json,sys; print(json.load(sys.stdin)[0]['version'])")
+            curl -fsSL -o server.jar "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.5/$inst/server/jar"
+            curl -fsSL -o mods/fabric-api.jar "https://cdn.modrinth.com/data/P7dR8mSH/versions/ewUK83HI/fabric-api-0.161.0%2B26.2.jar"
+            cp ../libs/create-fly-26.2.jar mods/
+            cp $(ls ../build/libs/*.jar | grep -v sources | head -1) mods/
+            echo "eula=true" > eula.txt
+            printf 'level-seed=12345\nonline-mode=false\nmax-tick-time=-1\nview-distance=4\n' > server.properties
+            mkfifo in.fifo
+            (java -Xmx4G -jar server.jar --nogui < in.fifo > server.log 2>&1; echo "EXIT $?" >> server.log) &
+            exec 3> in.fifo
+            for i in $(seq 1 120); do
+              if grep -q 'Done (' server.log || grep -q '^EXIT' server.log; then break; fi
+              sleep 5
+            done
+            if grep -q 'Done (' server.log; then
+              if [ -f ../.github/smoke-commands.txt ]; then
+                while read -r line; do echo "$line" >&3; sleep 0.3; done < ../.github/smoke-commands.txt
+                sleep 30
+              fi
+              echo "stop" >&3
+              for i in $(seq 1 60); do grep -q '^EXIT' server.log && break; sleep 2; done
+            fi
+            exec 3>&-
+            cp server.log /tmp/ci/server.log
+            cp -r crash-reports /tmp/ci/ 2>/dev/null || true
+            cd ..
+          fi
       - name: Publish build log to the ci-logs branch
         if: always()
         shell: bash

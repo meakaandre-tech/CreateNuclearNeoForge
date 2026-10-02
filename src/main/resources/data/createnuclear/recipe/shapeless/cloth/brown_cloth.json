@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "tag": "createnuclear:cloth"
-    },
-    {
-      "item": "minecraft:brown_dye"
-    }
+    "#createnuclear:cloth",
+    "minecraft:brown_dye"
   ],
   "result": {
     "count": 1,

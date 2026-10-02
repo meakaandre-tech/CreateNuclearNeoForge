@@ -1,13 +1,7 @@
 {
   "type": "create:item_application",
-  "ingredients": [
-    {
-      "item": "create:brass_casing"
-    },
-    {
-      "tag": "c:ingots/steel"
-    }
-  ],
+  "target": "create:brass_casing",
+  "ingredient": "#c:ingots/steel",
   "results": [
     {
       "id": "createnuclear:reactor_casing"

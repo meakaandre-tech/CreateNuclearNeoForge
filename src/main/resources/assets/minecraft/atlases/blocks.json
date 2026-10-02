@@ -1,11 +1,11 @@
 {
   "sources": [
     {
-      "type": "single",
+      "type": "minecraft:single",
       "resource": "createnuclear:fluid/uranium_flow"
     },
     {
-      "type": "single",
+      "type": "minecraft:single",
       "resource": "createnuclear:fluid/uranium_still"
     }
   ]
