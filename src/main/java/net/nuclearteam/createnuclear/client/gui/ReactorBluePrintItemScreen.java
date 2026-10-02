@@ -53,8 +53,8 @@ public class ReactorBluePrintItemScreen extends AbstractSimiContainerScreen<Reac
     @Override
     protected void containerTick() {
         super.containerTick();
-        if (!ItemStack.matches(menu.player.getMainHandItem(), menu.contentHolder)) {
-            menu.player.closeContainer();
+        if (!ItemStack.matches(minecraft.player.getMainHandItem(), menu.contentHolder)) {
+            minecraft.player.closeContainer();
         }
 
         float coef = 0.1F;
