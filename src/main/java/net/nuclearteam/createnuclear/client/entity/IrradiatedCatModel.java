@@ -1,0 +1,98 @@
+package net.nuclearteam.createnuclear.client.entity;
+
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
+
+/**
+ * The irradiated cat. The original overrode renderToBuffer to draw every part as is (no baby transform);
+ * rendering the root does the same.
+ */
+public class IrradiatedCatModel extends EntityModel<IrradiatedCatRenderState> {
+
+    private final ModelPart head;
+    private final ModelPart body;
+    private final ModelPart leftFrontLeg;
+    private final ModelPart rightFrontLeg;
+    private final ModelPart leftHindLeg;
+    private final ModelPart rightHindLeg;
+    private final ModelPart tail1;
+    private final ModelPart tail2;
+    protected int state = 1;
+
+    public IrradiatedCatModel(ModelPart root) {
+        super(root);
+        this.head = root.getChild("head");
+        this.body = root.getChild("body");
+        this.leftFrontLeg = root.getChild("left_front_leg");
+        this.rightFrontLeg = root.getChild("right_front_leg");
+        this.leftHindLeg = root.getChild("left_hind_leg");
+        this.rightHindLeg = root.getChild("right_hind_leg");
+        this.tail1 = root.getChild("tail1");
+        this.tail2 = root.getChild("tail2");
+    }
+
+    @Override
+    public void setupAnim(IrradiatedCatRenderState renderState) {
+        super.setupAnim(renderState);
+        float limbSwing = renderState.walkAnimationPos;
+        float limbSwingAmount = renderState.walkAnimationSpeed;
+        float netHeadYaw = renderState.yRot;
+        float headPitch = renderState.xRot;
+
+        this.head.xRot = headPitch * 0.017453292F;
+        this.head.yRot = netHeadYaw * 0.017453292F;
+        if (this.state != 3) {
+            this.body.xRot = 1.5707964F;
+            if (this.state == 2) {
+                this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * limbSwingAmount;
+                this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + 0.3F) * limbSwingAmount;
+                this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F + 0.3F) * limbSwingAmount;
+                this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F) * limbSwingAmount;
+                this.tail2.xRot = 1.7278761F + 0.31415927F * Mth.cos(limbSwing) * limbSwingAmount;
+            } else {
+                this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * limbSwingAmount;
+                this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F) * limbSwingAmount;
+                this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F) * limbSwingAmount;
+                this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * limbSwingAmount;
+                if (this.state == 1) {
+                    this.tail2.xRot = 1.7278761F + 0.7853982F * Mth.cos(limbSwing) * limbSwingAmount;
+                } else {
+                    this.tail2.xRot = 1.7278761F + 0.47123894F * Mth.cos(limbSwing) * limbSwingAmount;
+                }
+            }
+        }
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        partdefinition.addOrReplaceChild("pustule3", CubeListBuilder.create().texOffs(46, 24).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, 19.6F, -4.5F, 1.8282F, -1.4377F, 3.0129F));
+        partdefinition.addOrReplaceChild("pustule2", CubeListBuilder.create().texOffs(46, 24).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, 14.6F, 4.5F, 1.442F, 0.0338F, 1.6973F));
+        partdefinition.addOrReplaceChild("teeth2", CubeListBuilder.create().texOffs(41, 23).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.8F, 17.1F, -12.2F, 0.3927F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("teeth", CubeListBuilder.create().texOffs(41, 23).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.8F, 17.1F, -12.2F, 0.3927F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.0F, -3.0F, 5.0F, 4.0F, 5.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 24).addBox(-1.5F, -0.02F, -4.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 10).addBox(-2.0F, -3.0F, 0.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(6, 10).addBox(1.0F, -3.0F, 0.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.0F, -9.0F));
+
+        partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(20, 0).addBox(-2.0F, 3.0F, -8.0F, 4.0F, 16.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 12.0F, -10.0F, 1.5708F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(40, 0).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 10.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(1.1F, 14.1F, -5.0F));
+        partdefinition.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(40, 0).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 10.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.1F, 14.1F, -5.0F));
+        partdefinition.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(8, 13).addBox(-1.0F, 0.0F, 1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(1.1F, 18.0F, 5.0F));
+        partdefinition.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(8, 13).addBox(-1.0F, 0.0F, 1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.1F, 18.0F, 5.0F));
+
+        partdefinition.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 15).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 15.0F, 8.0F, 0.9F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(4, 15).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 14.0F));
+
+        partdefinition.addOrReplaceChild("pustule", CubeListBuilder.create().texOffs(46, 24).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.1F, 15.5F, -10.0F, -0.2597F, 0.0338F, 1.6973F));
+        return LayerDefinition.create(meshdefinition, 64, 32);
+    }
+}

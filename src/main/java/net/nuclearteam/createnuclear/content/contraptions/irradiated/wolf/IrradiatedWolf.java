@@ -78,7 +78,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         super(entityType, level);
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.ON_TOP_OF_POWDER_SNOW, -1.0F);
     }
 
     protected void registerGoals() {
@@ -312,7 +312,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
 
     }
 
-    protected void hurtArmor(DamageSource damageSource, float damageAmount) {
+    public void hurtArmor(DamageSource damageSource, float damageAmount) {
         this.doHurtEquipment(damageSource, damageAmount, new EquipmentSlot[]{EquipmentSlot.BODY});
     }
 
