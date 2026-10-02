@@ -1,0 +1,41 @@
+cmd tp @a 5.5 200 -7.5 0 5
+sleep 5
+shot
+cmd tp @a 14 201 3.5 0 0
+sleep 5
+shot
+cmd tp @a 3.5 200 -1.5 0 25
+sleep 4
+rclick 640 360
+sleep 3
+shot
+key Escape
+sleep 1
+cmd item replace entity @a armor.head with create:goggles
+cmd tp @a 0.5 200 -1.5 0 25
+sleep 4
+shot
+cmd tp @a 2.5 200 -1.5 0 25
+sleep 4
+shot
+cmd item replace entity @a hotbar.0 with createnuclear:reactor_blueprint_item
+cmd tp @a 5.5 200 -7.5 0 -60
+sleep 3
+rclick 640 360
+sleep 3
+shot
+key Escape
+sleep 1
+cmd item replace entity @a hotbar.0 with minecraft:air
+cmd item replace entity @a armor.head with createnuclear:white_anti_radiation_helmet
+cmd tp @a 5.5 200 -7.5 0 5
+sleep 3
+shot
+cmd item replace entity @a armor.head with minecraft:air
+cmd effect give @a createnuclear:radiation 30 0
+sleep 4
+shot
+cmd effect clear @a
+key e
+sleep 3
+shot

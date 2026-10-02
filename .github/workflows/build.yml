@@ -76,16 +76,19 @@ jobs:
             done
             (cd /tmp/ci-data && tar czf /tmp/ci/data.tar.gz . ) || true
           fi
-      - name: Dedicated server smoke test
+      - name: Smoke test (dedicated server, then a client that joins it)
         if: always()
         continue-on-error: true
         shell: bash
         run: |
+          # Only runs when .github/smoke-test exists. Starts a real Fabric server with the built jar, feeds it
+          # .github/smoke-commands.txt, and (when .github/smoke-client exists) joins it with a dev client under Xvfb,
+          # driven by .github/smoke-script.txt. Logs and screenshots go to the ci-logs branch.
           set +e
           mkdir -p /tmp/ci
-          exec > >(tee /tmp/ci/smoke.txt) 2>&1
-          set -x
           if [ -f .github/smoke-test ] && ls build/libs/*.jar >/dev/null 2>&1; then
+            exec > >(tee /tmp/ci/smoke.txt) 2>&1
+            root=$PWD
             mkdir -p server/mods && cd server
             inst=$(curl -fsSL https://meta.fabricmc.net/v2/versions/installer | python3 -c "import json,sys; print(json.load(sys.stdin)[0]['version'])")
             curl -fsSL -o server.jar "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.5/$inst/server/jar"
@@ -93,79 +96,74 @@ jobs:
             cp ../libs/create-fly-26.2.jar mods/
             cp $(ls ../build/libs/*.jar | grep -v sources | head -1) mods/
             echo "eula=true" > eula.txt
-            printf 'level-seed=12345\nonline-mode=false\nmax-tick-time=-1\nview-distance=4\ngamemode=creative\ndifficulty=peaceful\n' > server.properties
+            printf 'level-seed=12345\nonline-mode=false\nmax-tick-time=-1\nview-distance=5\ngamemode=creative\ndifficulty=peaceful\nspawn-protection=0\n' > server.properties
             mkfifo in.fifo
-            (java -Xmx4G -jar server.jar --nogui < in.fifo > server.log 2>&1; echo "EXIT $?" >> server.log) &
+            (java -Xmx3G -jar server.jar --nogui < in.fifo > server.log 2>&1; echo "EXIT $?" >> server.log) &
             exec 3> in.fifo
             for i in $(seq 1 120); do
               if grep -q 'Done (' server.log || grep -q '^EXIT' server.log; then break; fi
               sleep 5
             done
             if grep -q 'Done (' server.log; then
-              if [ -f ../.github/smoke-commands.txt ]; then
-                while read -r line; do echo "$line" >&3; sleep 0.3; done < ../.github/smoke-commands.txt
-                sleep 30
+              if [ -f $root/.github/smoke-commands.txt ]; then
+                while read -r line; do echo "$line" >&3; sleep 0.3; done < $root/.github/smoke-commands.txt
+                sleep 10
+              fi
+              if [ -f $root/.github/smoke-client ]; then
+                cd $root
+                sudo apt-get update -q >/dev/null 2>&1
+                sudo apt-get install -y -q xvfb xdotool imagemagick libgl1-mesa-dri >/dev/null 2>&1
+                mkdir -p run/mods
+                cp libs/create-fly-26.2.jar run/mods/
+                printf 'pauseOnLostFocus:false\nonboardAccessibility:false\ntutorialStep:none\nnarrator:0\nrenderDistance:5\nmaxFps:30\nsoundCategory_master:0.0\n' > run/options.txt
+                export LIBGL_ALWAYS_SOFTWARE=1
+                Xvfb :99 -screen 0 1280x720x24 >/dev/null 2>&1 &
+                export DISPLAY=:99
+                sleep 2
+                (env -u CI timeout 840 ./gradlew runClient --no-daemon -Dorg.gradle.console=plain --args="--quickPlayMultiplayer localhost --width 1280 --height 720" > client-gradle.log 2>&1; echo "EXIT $?" >> client-gradle.log) &
+                for i in $(seq 1 130); do
+                  if grep -q 'joined the game' server/server.log || grep -q '^EXIT' client-gradle.log; then break; fi
+                  sleep 5
+                done
+                n=0
+                shot() { n=$((n+1)); import -window root /tmp/ci/client-$n.png; }
+                if grep -q 'joined the game' server/server.log; then
+                  sleep 40
+                  xdotool mousemove 640 360
+                  if [ -f .github/smoke-script.txt ]; then
+                    while read -r kind arg; do
+                      case "$kind" in
+                        cmd) echo "$arg" >&3;;
+                        key) xdotool key "$arg";;
+                        keydown) xdotool keydown "$arg";;
+                        keyup) xdotool keyup "$arg";;
+                        type) xdotool type --delay 40 "$arg";;
+                        sleep) sleep "$arg";;
+                        shot) shot;;
+                        move) xdotool mousemove $arg;;
+                        click) xdotool mousemove $arg click 1;;
+                        rclick) xdotool mousemove $arg click 3;;
+                      esac
+                    done < .github/smoke-script.txt
+                  else
+                    shot
+                  fi
+                else
+                  shot
+                fi
+                pkill -f KnotClient; sleep 5
+                tail -c 300000 client-gradle.log > /tmp/ci/client-gradle.log
+                cp run/logs/latest.log /tmp/ci/client.log 2>/dev/null
+                cp -r run/crash-reports /tmp/ci/client-crash-reports 2>/dev/null
+                cd server
               fi
               echo "stop" >&3
               for i in $(seq 1 60); do grep -q '^EXIT' server.log && break; sleep 2; done
             fi
             exec 3>&-
-            ls -l . mods
             cp server.log /tmp/ci/server.log
             cp -r crash-reports /tmp/ci/ 2>/dev/null || true
-            cd ..
-          fi
-      - name: Client smoke test
-        if: always()
-        continue-on-error: true
-        shell: bash
-        run: |
-          set +e
-          mkdir -p /tmp/ci
-          if [ -f .github/smoke-client ] && [ -d server/world ]; then
-            exec > >(tee /tmp/ci/smoke-client.txt) 2>&1
-            set -x
-            sudo apt-get update -q >/dev/null 2>&1
-            sudo apt-get install -y -q xvfb xdotool imagemagick libgl1-mesa-dri >/dev/null 2>&1
-            mkdir -p run/mods run/saves
-            cp libs/create-fly-26.2.jar run/mods/
-            cp -r server/world run/saves/world
-            rm -f run/saves/world/session.lock
-            printf 'pauseOnLostFocus:false\nonboardAccessibility:false\ntutorialStep:none\nnarrator:0\nrenderDistance:5\nmaxFps:30\nsoundCategory_master:0.0\n' > run/options.txt
-            export LIBGL_ALWAYS_SOFTWARE=1
-            Xvfb :99 -screen 0 1280x720x24 >/dev/null 2>&1 &
-            export DISPLAY=:99
-            sleep 2
-            (env -u CI timeout 780 ./gradlew runClient --no-daemon -Dorg.gradle.console=plain --args="--quickPlaySingleplayer world --width 1280 --height 720" > client-gradle.log 2>&1; echo "EXIT $?" >> client-gradle.log) &
-            for i in $(seq 1 130); do
-              if grep -q 'logged in with entity id\|joined the game' run/logs/latest.log 2>/dev/null || grep -q '^EXIT' client-gradle.log; then break; fi
-              sleep 5
-            done
-            n=0
-            shot() { n=$((n+1)); import -window root /tmp/ci/client-$n.png; }
-            if grep -q 'logged in with entity id\|joined the game' run/logs/latest.log 2>/dev/null; then
-              sleep 45
-              xdotool mousemove 640 360
-              shot
-              if [ -f .github/smoke-client-keys.txt ]; then
-                while read -r kind arg; do
-                  case "$kind" in
-                    key) xdotool key "$arg";;
-                    type) xdotool type --delay 40 "$arg";;
-                    sleep) sleep "$arg";;
-                    shot) shot;;
-                    click) xdotool mousemove $arg click 1;;
-                    rclick) xdotool mousemove $arg click 3;;
-                  esac
-                done < .github/smoke-client-keys.txt
-              fi
-            else
-              shot
-            fi
-            pkill -f 'net.fabricmc' ; pkill -f KnotClient; sleep 5; pkill java
-            tail -c 300000 client-gradle.log > /tmp/ci/client-gradle.log
-            cp run/logs/latest.log /tmp/ci/client.log 2>/dev/null
-            cp -r run/crash-reports /tmp/ci/client-crash-reports 2>/dev/null
+            cd $root
           fi
       - name: Publish build log to the ci-logs branch
         if: always()

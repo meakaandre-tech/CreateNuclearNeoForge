@@ -56,6 +56,12 @@ place feature createnuclear:uranium_ore 0 20 0
 place feature createnuclear:lead_ore 0 30 0
 place feature createnuclear:striated_ores_overworld 0 10 0
 loot spawn 0 210 0 loot createnuclear:blocks/uranium_ore
+fill 12 200 8 15 203 8 createnuclear:reinforced_glass
+setblock 13 202 8 minecraft:air
+fill 12 200 11 15 203 11 createnuclear:reactor_casing
+setblock 14 201 11 minecraft:air
+fill 17 200 8 17 203 8 createnuclear:autunite_pillar
+fill 17 200 11 18 201 11 createnuclear:layered_autunite
 tick sprint 600
 execute if block 14 200 4 createnuclear:autunite
 execute if entity @e[type=minecraft:item,nbt={Item:{id:"createnuclear:enriched_yellowcake"}}]
