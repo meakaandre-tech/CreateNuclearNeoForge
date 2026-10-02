@@ -1,52 +1,42 @@
 package net.nuclearteam.createnuclear.content.multiblock.controller;
 
-import com.simibubi.create.AllDataComponents;
-import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.CreateLang;
-import com.simibubi.create.foundation.utility.IInteractionChecker;
+import com.zurrtum.create.api.behaviour.BlockEntityBehaviour;
+import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
+import com.zurrtum.create.foundation.utility.IInteractionChecker;
 import lib.multiblock.SimpleMultiBlockAislePatternBuilder;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.platform.CatnipServices;
-import net.minecraft.ChatFormatting;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
-import net.nuclearteam.createnuclear.*;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.nuclearteam.createnuclear.CNBlocks;
+import net.nuclearteam.createnuclear.CNDataComponents;
+import net.nuclearteam.createnuclear.CNItems;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.multiblock.IHeat;
 import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.PatternData;
 import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintData;
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity;
+import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputInventory;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import static net.nuclearteam.createnuclear.content.multiblock.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
 @SuppressWarnings({"unused"})
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, IHaveGoggleInformation {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker {
     public boolean destroyed = false;
     public boolean created = false;
     public boolean test = true;
@@ -108,7 +98,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    public void addBehaviours(List<BlockEntityBehaviour<?>> behaviours) {
 
     }
 
@@ -117,71 +107,50 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         return state.getValue(ASSEMBLED);
     }
 
+    // the goggle overlay lives in client.CNTooltips.ReactorController
+
+    public ItemStack getFuelItem() {
+        return fuelItem;
+    }
+
+    public ItemStack getCoolerItem() {
+        return coolerItem;
+    }
+
     @Override
-    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        if(!configuredPattern.isEmpty()) {
-            CreateLang.translate("gui.gauge.info_header").style(ChatFormatting.GRAY).forGoggles(tooltip);
-            IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
-
-            IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
-
-            if (fuelItem.isEmpty()) {
-                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.asItem(), 1), true).forGoggles(tooltip);
-            } else {
-                IHeat.HeatLevel.getFormattedItemText(fuelItem, false).forGoggles(tooltip);
-            }
-
-            if (fuelItem.isEmpty()) {
-                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD.asItem(), 1), true).forGoggles(tooltip);
-            } else {
-                IHeat.HeatLevel.getFormattedItemText(coolerItem, false).forGoggles(tooltip);
-            }
-        }
-
-        return true;
+    public void destroy() {
+        super.destroy();
+        Containers.dropContents(level, worldPosition, inventory);
     }
 
     //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
-    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) { //Permet de stocker les item 1/2
+    protected void read(ValueInput tag, boolean clientPacket) { //Permet de stocker les item 1/2
         if (!clientPacket) {
-            inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+            inventory.read(tag.childOrEmpty("inventory"));
         }
-        configuredPattern = ItemStack.EMPTY;
-        if (tag.contains("configuredPattern")) {
-            ItemStack.parse(registries, tag.getCompound("configuredPattern")).ifPresent(i -> configuredPattern = i);
-        }
+        configuredPattern = tag.read("configuredPattern", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        coolerItem = tag.read("coolerItem", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        fuelItem = tag.read("fuelItem", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
-        coolerItem = ItemStack.EMPTY;
-        if (tag.contains("coolerItem")) {
-            ItemStack.parse(registries, tag.getCompound("coolerItem")).ifPresent(i -> coolerItem = i);
-        }
-
-        fuelItem = ItemStack.EMPTY;
-        if (tag.contains("fuelItem")) {
-            ItemStack.parse(registries, tag.getCompound("fuelItem")).ifPresent(i -> fuelItem = i);
-        }
-
-        total = tag.getDouble("total");
-        heat = tag.getInt("heat");
-        super.read(tag, registries, clientPacket);
+        total = tag.getDoubleOr("total", 0);
+        heat = tag.getIntOr("heat", 0);
+        super.read(tag, clientPacket);
     }
 
     @Override
-    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) { //Permet de stocker les item 2/2
+    protected void write(ValueOutput compound, boolean clientPacket) { //Permet de stocker les item 2/2
         if (!clientPacket) {
-            compound.put("inventory", inventory.serializeNBT(registries));
+            inventory.write(compound.child("inventory"));
         }
 
-        if (configuredPattern != null) compound.put("configuredPattern", configuredPattern.saveOptional(registries));
-        if (coolerItem != null) compound.put("coolerItem", coolerItem.saveOptional(registries));
-        if (fuelItem != null) compound.put("fuelItem", fuelItem.saveOptional(registries));
+        if (configuredPattern != null) compound.store("configuredPattern", ItemStack.OPTIONAL_CODEC, configuredPattern);
+        if (coolerItem != null) compound.store("coolerItem", ItemStack.OPTIONAL_CODEC, coolerItem);
+        if (fuelItem != null) compound.store("fuelItem", ItemStack.OPTIONAL_CODEC, fuelItem);
 
         compound.putDouble("total", Double.isNaN(total) ? total : calculateProgress());
         compound.putInt("heat", heat);
-        super.write(compound, registries, clientPacket);
+        super.write(compound, clientPacket);
     }
 
     public enum State {
@@ -191,7 +160,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide)
+        if (level.isClientSide())
             return;
 
         if (isEmptyConfiguredPattern()) {
@@ -206,22 +175,22 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             BlockEntity blockEntity = level.getBlockEntity(getBlockPosForReactor('I'));
 
             if (blockEntity instanceof ReactorInputEntity be) {
-                fuelItem = be.inventory.getStackInSlot(0);
-                coolerItem = be.inventory.getStackInSlot(1);
+                fuelItem = be.inventory.getItem(0);
+                coolerItem = be.inventory.getItem(1);
 
-                IItemHandler capability = level.getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), Direction.NORTH.getOpposite());
-                if (capability == null)
-                    capability = EmptyItemHandler.INSTANCE;
+                ReactorInputInventory capability = be.inventory;
                 if (tmpUraniumTimer >= 0) {
                     tmpUraniumTimer -= 1 * countUraniumRod;
                 } else {
-                    ItemStack extractItem1 = capability.extractItem(0, 1, false);
+                    ItemStack extractItem1 = capability.removeItem(0, 1);
+                    capability.setChanged();
                     tmpUraniumTimer = uraniumTimer;
                 }
                 if (tmpGraphiteTimer >= 0) {
                     tmpGraphiteTimer -= 1 * countGraphiteRod;
                 } else {
-                    ItemStack extractItem2 = capability.extractItem(1, 1, false);
+                    ItemStack extractItem2 = capability.removeItem(1, 1);
+                    capability.setChanged();
                     tmpGraphiteTimer = graphiteTimer;
                 }
 
@@ -235,7 +204,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                         } else {
                             EventTriggerPacket packet = new EventTriggerPacket(600);
                             CreateNuclear.LOGGER.warn("hum EventTriggerBlock ? {}", packet);
-                            CatnipServices.NETWORK.sendToClientsAround((ServerLevel) level, getBlockPos(), 32, packet);
+                            for (ServerPlayer player : PlayerLookup.around((ServerLevel) level, getBlockPos(), 32))
+                                ServerPlayNetworking.send(player, packet);
 
                             this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0, false);
                             isTotal = false;
@@ -318,10 +288,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             char currentRod = '\0';
             ItemStack stack = pd.stack();
 
-            if (stack.is(CNItems.URANIUM_ROD)) {
+            if (stack.is(CNItems.URANIUM_ROD.get())) {
                 heat += baseUraniumHeat;
                 currentRod = 'u';
-            } else if (stack.is(CNItems.GRAPHITE_ROD)) {
+            } else if (stack.is(CNItems.GRAPHITE_ROD.get())) {
                 heat += baseGraphiteHeat;
                 currentRod = 'g';
             }
@@ -341,7 +311,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                                     if (pd2.slot() == neighborSlot) {
                                         ItemStack stack2 = pd.stack();
                                         if (currentRod == 'u') {
-                                            heat += stack2.is(CNItems.URANIUM_ROD) ? proximityUraniumHeat : proximityGraphiteHeat;
+                                            heat += stack2.is(CNItems.URANIUM_ROD.get()) ? proximityUraniumHeat : proximityGraphiteHeat;
                                         }
                                         break;
                                     }
@@ -381,25 +351,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         return posInput;
     }
 
-    private CompoundTag convertePattern(CompoundTag compoundTag) {
-        ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
-
-        int[][] list = new int[][]{
-                {99,99,99,0,1,2,99,99,99},
-                {99,99,3,4,5,6,7,99,99},
-                {99,8,9,10,11,12,13,14,99},
-                {15,16,17,18,19,20,21,22,23},
-                {24,25,26,27,28,29,30,31,32},
-                {33,34,35,36,37,38,39,40,41},
-                {99,42,43,44,45,46,47,48,99},
-                {99,99,49,50,51,52,53,99,99},
-                {99,99,99,54,55,56,99,99,99}
-        };
-
-
-        return null;
-    }
-
     private static BlockPos FindController(char character) {
         return SimpleMultiBlockAislePatternBuilder.start()
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
@@ -424,6 +375,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0 && isActif) {
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput block) {
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+                if (entity == null) return;
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
                     entity.speed = rotation;
                     entity.heat = rotation;
@@ -440,6 +392,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         else {
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput block) {
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+                if (entity == null) return;
                 entity.setSpeed(0);
                 entity.heat = 0;
                 entity.updateSpeed = true;

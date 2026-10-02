@@ -1,12 +1,9 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf;
 
-import com.mojang.math.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,43 +25,42 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Llama;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.Llama;
+import net.minecraft.world.entity.animal.turtle.Turtle;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariant;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.event.EventHooks;
 import net.nuclearteam.createnuclear.CNEntityType;
 import net.nuclearteam.createnuclear.CNTags;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.UUID;
-import java.util.function.Predicate;
-
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-@SuppressWarnings({"unused", "deprecation"})
+@SuppressWarnings({"unused"})
 public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID;
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
-    public static final Predicate<LivingEntity> PREY_SELECTOR;
+    private static final EntityDataAccessor<Long> DATA_ANGER_END_TIME;
+    public static final TargetingConditions.Selector PREY_SELECTOR;
     private static final float START_HEALTH = 8.0F;
     private static final float TAME_HEALTH = 40.0F;
     private static final float ARMOR_REPAIR_UNIT = 0.125F;
@@ -76,7 +72,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     private float shakeAnimO;
     private static final UniformInt PERSISTENT_ANGER_TIME;
     @Nullable
-    private UUID persistentAngerTarget;
+    private EntityReference<LivingEntity> persistentAngerTarget;
 
     public IrradiatedWolf(EntityType<? extends IrradiatedWolf> entityType, Level level) {
         super(entityType, level);
@@ -117,51 +113,52 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        RegistryAccess registryaccess = this.registryAccess();
-
         builder.define(DATA_INTERESTED_ID, false);
-        builder.define(DATA_REMAINING_ANGER_TIME, 0);
+        builder.define(DATA_ANGER_END_TIME, -1L);
     }
 
     protected void playStepSound(BlockPos pos, BlockState block) {
-        this.playSound(SoundEvents.WOLF_STEP, 0.15F, 1.0F);
+        this.playSound(sounds().stepSound().value(), 0.15F, 1.0F);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    // the wolf sounds are per sound variant now; these are the classic ones
+    private static WolfSoundVariant.WolfSoundSet sounds() {
+        return SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.SoundSet.CLASSIC).adultSounds();
+    }
+
+    protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
 
         this.addPersistentAngerSaveData(compound);
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
 
         this.readPersistentAngerSaveData(this.level(), compound);
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        Holder<Biome> holder = level.getBiome(this.blockPosition());
-
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnGroupData) {
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     protected SoundEvent getAmbientSound() {
         if (this.isAngry()) {
-            return SoundEvents.WOLF_GROWL;
+            return sounds().growlSound().value();
         } else if (this.random.nextInt(3) != 0) {
-            return SoundEvents.WOLF_AMBIENT;
+            return sounds().ambientSound().value();
         } else {
-            return this.isTame() && this.getHealth() < 20.0F ? SoundEvents.WOLF_WHINE : SoundEvents.WOLF_PANT;
+            return this.isTame() && this.getHealth() < 20.0F ? sounds().whineSound().value() : sounds().pantSound().value();
         }
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return this.canArmorAbsorb(damageSource) ? SoundEvents.WOLF_ARMOR_DAMAGE : SoundEvents.WOLF_HURT;
+        return this.canArmorAbsorb(damageSource) ? SoundEvents.WOLF_ARMOR_DAMAGE : sounds().hurtSound().value();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WOLF_DEATH;
+        return sounds().deathSound().value();
     }
 
     protected float getSoundVolume() {
@@ -170,14 +167,14 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
 
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide && this.isWet && !this.isShaking && !this.isPathFinding() && this.onGround()) {
+        if (!this.level().isClientSide() && this.isWet && !this.isShaking && !this.isPathFinding() && this.onGround()) {
             this.isShaking = true;
             this.shakeAnim = 0.0F;
             this.shakeAnimO = 0.0F;
             this.level().broadcastEntityEvent(this, (byte)8);
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.updatePersistentAnger((ServerLevel)this.level(), true);
         }
 
@@ -193,9 +190,9 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
                 this.interestedAngle += (0.0F - this.interestedAngle) * 0.4F;
             }
 
-            if (this.isInWaterRainOrBubble()) {
+            if (this.isInWaterOrRain()) {
                 this.isWet = true;
-                if (this.isShaking && !this.level().isClientSide) {
+                if (this.isShaking && !this.level().isClientSide()) {
                     this.level().broadcastEntityEvent(this, (byte)56);
                     this.cancelShake();
                 }
@@ -271,15 +268,13 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         return this.isInSittingPose() ? 20 : super.getMaxHeadXRot();
     }
 
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        if (this.isInvulnerableTo(level, source)) {
             return false;
         } else {
-            if (!this.level().isClientSide) {
-                this.setOrderedToSit(false);
-            }
+            this.setOrderedToSit(false);
 
-            return super.hurt(source, amount);
+            return super.hurtServer(level, source, amount);
         }
     }
 
@@ -287,9 +282,9 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         return true;
     }
 
-    protected void actuallyHurt(DamageSource damageSource, float damageAmount) {
+    protected void actuallyHurt(ServerLevel level, DamageSource damageSource, float damageAmount) {
         if (!this.canArmorAbsorb(damageSource)) {
-            super.actuallyHurt(damageSource, damageAmount);
+            super.actuallyHurt(level, damageSource, damageAmount);
         } else {
             ItemStack itemstack = this.getBodyArmorItem();
             int i = itemstack.getDamageValue();
@@ -297,11 +292,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
             itemstack.hurtAndBreak(Mth.ceil(damageAmount), this, EquipmentSlot.BODY);
             if (Crackiness.WOLF_ARMOR.byDamage(i, j) != Crackiness.WOLF_ARMOR.byDamage(this.getBodyArmorItem())) {
                 this.playSound(SoundEvents.WOLF_ARMOR_CRACK);
-                Level var7 = this.level();
-                if (var7 instanceof ServerLevel) {
-                    ServerLevel serverlevel = (ServerLevel)var7;
-                    serverlevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, Items.ARMADILLO_SCUTE.getDefaultInstance()), this.getX(), this.getY() + (double)1.0F, this.getZ(), 20, 0.2, 0.1, 0.2, 0.1);
-                }
+                level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, Items.ARMADILLO_SCUTE), this.getX(), this.getY() + (double)1.0F, this.getZ(), 20, 0.2, 0.1, 0.2, 0.1);
             }
         }
 
@@ -328,23 +319,23 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
-        if (!this.level().isClientSide || this.isBaby() && this.isFood(itemstack)) {
+        if (!this.level().isClientSide() || this.isBaby() && this.isFood(itemstack)) {
             if (this.isTame()) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                    FoodProperties foodproperties = itemstack.getFoodProperties(this);
+                    FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
                     float f = foodproperties != null ? (float)foodproperties.nutrition() : 1.0F;
                     this.heal(2.0F * f);
                     itemstack.consume(1, player);
                     this.gameEvent(GameEvent.EAT);
-                    return InteractionResult.sidedSuccess(this.level().isClientSide());
+                    return InteractionResult.SUCCESS;
                 } else {
 
                     if (itemstack.is(Items.WOLF_ARMOR) && this.isOwnedBy(player) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
-                        this.setBodyArmorItem(itemstack.copyWithCount(1));
+                        this.setItemSlot(EquipmentSlot.BODY, itemstack.copyWithCount(1));
                         itemstack.consume(1, player);
                         return InteractionResult.SUCCESS;
-                    } else if (!itemstack.canPerformAction(ItemAbilities.SHEARS_REMOVE_ARMOR) || !this.isOwnedBy(player) || !this.hasArmor() || EnchantmentHelper.has(this.getBodyArmorItem(), EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE) && !player.isCreative()) {
-                        if (((Ingredient)((ArmorMaterial)ArmorMaterials.ARMADILLO.value()).repairIngredient().get()).test(itemstack) && this.isInSittingPose() && this.hasArmor() && this.isOwnedBy(player) && this.getBodyArmorItem().isDamaged()) {
+                    } else if (!itemstack.is(Items.SHEARS) || !this.isOwnedBy(player) || !this.hasArmor() || EnchantmentHelper.has(this.getBodyArmorItem(), EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE) && !player.isCreative()) {
+                        if (itemstack.is(ArmorMaterials.ARMADILLO_SCUTE.repairIngredient()) && this.isInSittingPose() && this.hasArmor() && this.isOwnedBy(player) && this.getBodyArmorItem().isDamaged()) {
                             itemstack.shrink(1);
                             this.playSound(SoundEvents.WOLF_ARMOR_REPAIR);
                             ItemStack itemstack2 = this.getBodyArmorItem();
@@ -358,17 +349,18 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
                                 this.jumping = false;
                                 this.navigation.stop();
                                 this.setTarget((LivingEntity)null);
-                                return InteractionResult.SUCCESS_NO_ITEM_USED;
+                                return InteractionResult.SUCCESS.withoutItem();
                             } else {
                                 return interactionresult;
                             }
                         }
                     } else {
-                        itemstack.hurtAndBreak(1, player, getSlotForHand(hand));
+                        itemstack.hurtAndBreak(1, player, hand);
                         this.playSound(SoundEvents.ARMOR_UNEQUIP_WOLF);
                         ItemStack itemstack1 = this.getBodyArmorItem();
-                        this.setBodyArmorItem(ItemStack.EMPTY);
-                        this.spawnAtLocation(itemstack1);
+                        this.setItemSlot(EquipmentSlot.BODY, ItemStack.EMPTY);
+                        if (this.level() instanceof ServerLevel serverLevel)
+                            this.spawnAtLocation(serverLevel, itemstack1);
                         return InteractionResult.SUCCESS;
                     }
                 }
@@ -386,7 +378,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     }
 
     private void tryToTame(Player player) {
-        if (this.random.nextInt(3) == 0 && !EventHooks.onAnimalTame(this, player)) {
+        if (this.random.nextInt(3) == 0) {
             this.tame(player);
             this.navigation.stop();
             this.setTarget((LivingEntity)null);
@@ -431,24 +423,29 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         return 8;
     }
 
-    public int getRemainingPersistentAngerTime() {
-        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    @Override
+    public long getPersistentAngerEndTime() {
+        return this.entityData.get(DATA_ANGER_END_TIME);
     }
 
-    public void setRemainingPersistentAngerTime(int time) {
-        this.entityData.set(DATA_REMAINING_ANGER_TIME, time);
+    @Override
+    public void setPersistentAngerEndTime(long time) {
+        this.entityData.set(DATA_ANGER_END_TIME, time);
     }
 
+    @Override
     public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     @Nullable
-    public UUID getPersistentAngerTarget() {
+    @Override
+    public EntityReference<LivingEntity> getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }
 
-    public void setPersistentAngerTarget(@Nullable UUID target) {
+    @Override
+    public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> target) {
         this.persistentAngerTarget = target;
     }
 
@@ -511,16 +508,16 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         return new Vec3((double)0.0F, (double)(0.6F * this.getEyeHeight()), (double)(this.getBbWidth() * 0.4F));
     }
 
-    public static boolean checkWolfSpawnRules(EntityType<Wolf> wolf, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkWolfSpawnRules(EntityType<IrradiatedWolf> wolf, LevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(BlockTags.WOLVES_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     static {
         DATA_INTERESTED_ID = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.BOOLEAN);
-        DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.INT);
-        PREY_SELECTOR = (p_348295_) -> {
+        DATA_ANGER_END_TIME = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.LONG);
+        PREY_SELECTOR = (p_348295_, level) -> {
             EntityType<?> entitytype = p_348295_.getType();
-            return entitytype == EntityType.SHEEP || entitytype == EntityType.RABBIT || entitytype == EntityType.FOX || entitytype == CNEntityType.IRRADIATED_CAT.get();
+            return entitytype == EntityTypes.SHEEP || entitytype == EntityTypes.RABBIT || entitytype == EntityTypes.FOX || entitytype == CNEntityType.IRRADIATED_CAT.get();
         };
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }

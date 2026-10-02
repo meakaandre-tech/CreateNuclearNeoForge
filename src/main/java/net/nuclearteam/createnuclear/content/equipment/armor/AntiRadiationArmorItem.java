@@ -1,38 +1,33 @@
 package net.nuclearteam.createnuclear.content.equipment.armor;
 
-import com.simibubi.create.content.equipment.armor.BaseArmorItem;
-import com.tterrag.registrate.util.entry.ItemEntry;
-import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
-import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.registry.entry.ItemEntry;
 
 import java.util.EnumMap;
-import java.util.Locale;
 import java.util.Map;
 
 @SuppressWarnings("unused")
 public class AntiRadiationArmorItem {
 
-    public static final ArmorItem.Type HELMET = ArmorItem.Type.HELMET;
-    public static final ArmorItem.Type CHESTPLATE = ArmorItem.Type.CHESTPLATE;
-    public static final ArmorItem.Type LEGGINGS = ArmorItem.Type.LEGGINGS;
-    public static final ArmorItem.Type BOOTS = ArmorItem.Type.BOOTS;
-    public static final Holder<ArmorMaterial> ARMOR_MATERIAL = CNArmorMaterials.ANTI_RADIATION_SUIT;
+    public static final ArmorType HELMET = ArmorType.HELMET;
+    public static final ArmorType CHESTPLATE = ArmorType.CHESTPLATE;
+    public static final ArmorType LEGGINGS = ArmorType.LEGGINGS;
+    public static final ArmorType BOOTS = ArmorType.BOOTS;
+    public static final ArmorMaterial ARMOR_MATERIAL = CNArmorMaterials.ANTI_RADIATION_SUIT;
 
 
-    public static class Helmet extends BaseArmorItem {
+    public static class Helmet extends Item {
         protected final DyeColor color;
 
         public Helmet(Properties properties, DyeColor color) {
-            super(
-                    CNArmorMaterials.ANTI_RADIATION_SUIT,
-                    HELMET,
-                    properties,
-                    CreateNuclear.asResource(String.format(Locale.ROOT, "%s_anti_radiation_suit", color.getName()))
-            );
+            super(properties.humanoidArmor(CNArmorMaterials.antiRadiationSuit(color), HELMET));
             this.color = color;
         }
 
@@ -44,16 +39,11 @@ public class AntiRadiationArmorItem {
     }
 
 
-    public static class Chestplate extends BaseArmorItem {
+    public static class Chestplate extends Item {
         protected final DyeColor color;
 
         public Chestplate(Properties properties, DyeColor color) {
-            super(
-                    CNArmorMaterials.ANTI_RADIATION_SUIT,
-                    CHESTPLATE,
-                    properties,
-                    CreateNuclear.asResource(String.format(Locale.ROOT, "%s_anti_radiation_suit", color.getName()))
-            );
+            super(properties.humanoidArmor(CNArmorMaterials.antiRadiationSuit(color), CHESTPLATE));
             this.color = color;
 
         }
@@ -65,16 +55,11 @@ public class AntiRadiationArmorItem {
         }
     }
 
-    public static class Leggings extends BaseArmorItem {
+    public static class Leggings extends Item {
         protected final DyeColor color;
 
         public Leggings(Properties properties, DyeColor color) {
-            super(
-                    CNArmorMaterials.ANTI_RADIATION_SUIT,
-                    LEGGINGS,
-                    properties,
-                    CreateNuclear.asResource(String.format(Locale.ROOT, "%s_anti_radiation_suit", color.getName()))
-            );
+            super(properties.humanoidArmor(CNArmorMaterials.antiRadiationSuit(color), LEGGINGS));
             this.color = color;
 
         }
@@ -87,14 +72,9 @@ public class AntiRadiationArmorItem {
         }
     }
 
-    public static class Boot extends BaseArmorItem {
+    public static class Boot extends Item {
         public Boot(Properties properties) {
-            super(
-                    CNArmorMaterials.ANTI_RADIATION_SUIT,
-                    BOOTS,
-                    properties,
-                    CreateNuclear.asResource(String.format(Locale.ROOT, "%s_anti_radiation_suit", DyeColor.WHITE.getName()))
-            );
+            super(properties.humanoidArmor(CNArmorMaterials.antiRadiationSuit(DyeColor.WHITE), BOOTS));
         }
     }
 

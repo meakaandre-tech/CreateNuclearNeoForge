@@ -1,34 +1,23 @@
 package net.nuclearteam.createnuclear.content.multiblock.bluePrintItem;
 
-import com.simibubi.create.AllDataComponents;
-import com.simibubi.create.foundation.item.ItemHelper;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.nbt.CompoundTag;
+import com.zurrtum.create.foundation.gui.menu.MenuBase;
+import com.zurrtum.create.foundation.gui.menu.MenuProvider;
+import com.zurrtum.create.infrastructure.items.ItemStackHandler;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.nuclearteam.createnuclear.CNDamageTypes;
 import net.nuclearteam.createnuclear.CNDataComponents;
 import net.nuclearteam.createnuclear.CNItems;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.List;
-
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class ReactorBluePrintItem extends Item implements MenuProvider {
 
     public ReactorBluePrintItem(Properties properties) {
@@ -42,37 +31,34 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+    public MenuBase<?> createMenu(int id, Inventory inv, Player player, RegistryFriendlyByteBuf extraData) {
         ItemStack heldItem = player.getMainHandItem();
+        ItemStack.STREAM_CODEC.encode(extraData, heldItem);
         return ReactorBluePrintMenu.create(id, inv, heldItem);
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getPlayer() == null) return InteractionResult.PASS;
-        return use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
+        return use(context.getLevel(), context.getPlayer(), context.getHand());
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
-            if (!world.isClientSide && player instanceof ServerPlayer)
-                player.openMenu(this, buf -> {
-                    ItemStack.STREAM_CODEC.encode(buf, heldItem);
-                });
-            return InteractionResultHolder.success(heldItem);
+            if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer)
+                openHandledScreen(serverPlayer);
+            return InteractionResult.SUCCESS;
         }
         else if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
-            if (!world.isClientSide && player instanceof ServerPlayer) {
-                player.openMenu(this, buf -> {
-                    ItemStack.STREAM_CODEC.encode(buf, heldItem);
-                });
+            if (!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+                openHandledScreen(serverPlayer);
             }
-            return InteractionResultHolder.success(heldItem);
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResultHolder.pass(heldItem);
+        return InteractionResult.PASS;
     }
 
     public static ItemStackHandler getItemStorage(ItemStack stack) {
@@ -90,7 +76,7 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
 
         PatternData[] pattern = data.pattern();
         for (int i = 0; i < slotCount; i++) {
-            inventory.setStackInSlot(i, pattern[i].stack());
+            inventory.setItem(i, pattern[i].stack());
         }
 
         return inventory;

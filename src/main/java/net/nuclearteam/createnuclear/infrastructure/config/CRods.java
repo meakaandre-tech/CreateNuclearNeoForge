@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.infrastructure.config;
 
-import net.createmod.catnip.config.ConfigBase;
 
 public class CRods extends ConfigBase {
     public final ConfigInt uraniumRodLifetime = i(3600, 100, 5000, "Uranium rod lifespan", Comments.UraniumRodLifetime, Comments.hintTick);

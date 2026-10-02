@@ -1,8 +1,10 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.entity.animal.chicken.ChickenSoundVariant;
+import net.minecraft.world.entity.animal.chicken.ChickenSoundVariants;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -22,11 +24,8 @@ import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.CNEntityType;
 import net.nuclearteam.createnuclear.CNTags;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 @SuppressWarnings("unused")
 public class IrradiatedChicken extends Animal {
     private static final EntityDimensions BABY_DIMENSIONS;
@@ -90,20 +89,25 @@ public class IrradiatedChicken extends Animal {
         this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
     }
 
+    // the chicken sounds are per sound variant now; these are the classic ones
+    private static ChickenSoundVariant.ChickenSoundSet sounds() {
+        return SoundEvents.CHICKEN_SOUNDS.get(ChickenSoundVariants.SoundSet.CLASSIC).adultSounds();
+    }
+
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT;
+        return sounds().ambientSound().value();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.CHICKEN_HURT;
+        return sounds().hurtSound().value();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH;
+        return sounds().deathSound().value();
     }
 
     protected void playStepSound(BlockPos pos, BlockState block) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+        this.playSound(sounds().stepSound().value(), 0.15F, 1.0F);
     }
 
     @Nullable
@@ -116,11 +120,11 @@ public class IrradiatedChicken extends Animal {
     }
 
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
     }
 

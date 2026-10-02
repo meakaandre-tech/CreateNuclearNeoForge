@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear.content.multiblock.frame;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -9,22 +9,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.redstone.Orientation;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+
+
 
 public class ReactorFrame extends Block implements IWrenchable {
     public static final Property<Part> PART = EnumProperty.create("part", Part.class);
@@ -47,7 +46,7 @@ public class ReactorFrame extends Block implements IWrenchable {
         ;
 
         @Override
-        public @NotNull String getSerializedName() {
+        public String getSerializedName() {
             return CreateNuclearLang.asId(name());
         }
     }
@@ -65,8 +64,8 @@ public class ReactorFrame extends Block implements IWrenchable {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        if (level.isClientSide) return;
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
+        if (level.isClientSide()) return;
 
         Direction.Axis axis = Direction.Axis.Y;
         Part part = getType(state, getRelativeTop(level, pos, axis), getRelativeBottom(level, pos, axis));
@@ -93,16 +92,6 @@ public class ReactorFrame extends Block implements IWrenchable {
         else if (!shapeAboveSame && shapeBelowSame) return  Part.START;
         else if (shapeAboveSame) return Part.MIDDLE;
         return Part.NONE;
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation direction) {
-        return super.rotate(state, level, pos, direction);
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return super.mirror(state, mirror);
     }
 
     @Override

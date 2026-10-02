@@ -2,7 +2,6 @@ package net.nuclearteam.createnuclear.content.multiblock.bluePrintItem;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -11,13 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+
+
 public record ReactorBluePrintData(int countGraphiteRod, int countUraniumRod, int graphiteTime, int uraniumTime, PatternData[] pattern, PatternData[] patternAll) {
     private static final Codec<PatternData[]> PATTERN_ARRAY_CODEC = PatternData.CODEC.listOf().xmap(
         list -> list.toArray(PatternData[]::new),
         List::of
     );
 
-    private static final StreamCodec<RegistryFriendlyByteBuf, PatternData[]> STREAM_PATTERN_ARRAY_CODEC = CatnipStreamCodecBuilders.array(PatternData.STREAM_CODEC, PatternData.class);
+    private static final StreamCodec<RegistryFriendlyByteBuf, PatternData[]> STREAM_PATTERN_ARRAY_CODEC = PatternData.STREAM_CODEC.apply(ByteBufCodecs.list()).map(
+            list -> list.toArray(PatternData[]::new),
+            List::of
+    );
 
     public static final Codec<ReactorBluePrintData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(

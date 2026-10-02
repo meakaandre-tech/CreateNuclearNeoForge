@@ -1,8 +1,9 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.cat;
 
 
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,23 +21,21 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
+import net.minecraft.world.entity.animal.turtle.Turtle;
+import net.minecraft.world.entity.animal.feline.CatSoundVariant;
+import net.minecraft.world.entity.animal.feline.CatSoundVariants;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.neoforged.neoforge.event.EventHooks;
 import net.nuclearteam.createnuclear.CNEntityType;
 import net.nuclearteam.createnuclear.CNTags;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 @SuppressWarnings({"unused"})
 public class IrradiatedCat extends TamableAnimal {
     public static final double TEMPT_SPEED_MOD = 0.6;
@@ -102,15 +101,15 @@ public class IrradiatedCat extends TamableAnimal {
         builder.define(RELAX_STATE_ONE, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
     }
 
-    public void customServerAiStep() {
+    public void customServerAiStep(ServerLevel level) {
         if (this.getMoveControl().hasWanted()) {
             double d0 = this.getMoveControl().getSpeedModifier();
             if (d0 == 0.6) {
@@ -134,13 +133,18 @@ public class IrradiatedCat extends TamableAnimal {
     protected SoundEvent getAmbientSound() {
         if (this.isTame()) {
             if (this.isInLove()) {
-                return SoundEvents.CAT_PURR;
+                return sounds().purrSound().value();
             } else {
-                return this.random.nextInt(4) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_AMBIENT;
+                return this.random.nextInt(4) == 0 ? sounds().purreowSound().value() : sounds().ambientSound().value();
             }
         } else {
-            return SoundEvents.CAT_STRAY_AMBIENT;
+            return sounds().strayAmbientSound().value();
         }
+    }
+
+    // the cat sounds are per sound variant now; these are the classic ones
+    private static CatSoundVariant.CatSoundSet sounds() {
+        return SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.CLASSIC).adultSounds();
     }
 
     public int getAmbientSoundInterval() {
@@ -148,15 +152,15 @@ public class IrradiatedCat extends TamableAnimal {
     }
 
     public void hiss() {
-        this.makeSound(SoundEvents.CAT_HISS);
+        this.makeSound(sounds().hissSound().value());
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.CAT_HURT;
+        return sounds().hurtSound().value();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CAT_DEATH;
+        return sounds().deathSound().value();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -168,16 +172,16 @@ public class IrradiatedCat extends TamableAnimal {
 
     protected void usePlayerItem(Player player, InteractionHand hand, ItemStack stack) {
         if (this.isFood(stack)) {
-            this.playSound(SoundEvents.CAT_EAT, 1.0F, 1.0F);
+            this.playSound(sounds().eatSound().value(), 1.0F, 1.0F);
         }
 
-        super.usePlayerItem(player, hand, stack);
+        stack.consume(1, player);
     }
 
     public void tick() {
         super.tick();
         if (this.temptGoal != null && this.temptGoal.isRunning() && !this.isTame() && this.tickCount % 100 == 0) {
-            this.playSound(SoundEvents.CAT_BEG_FOR_FOOD, 1.0F, 1.0F);
+            this.playSound(sounds().begForFoodSound().value(), 1.0F, 1.0F);
         }
 
         this.handleLieDown();
@@ -185,7 +189,7 @@ public class IrradiatedCat extends TamableAnimal {
 
     private void handleLieDown() {
         if ((this.isLying() || this.isRelaxStateOne()) && this.tickCount % 5 == 0) {
-            this.playSound(SoundEvents.CAT_PURR, 0.6F + 0.4F * (this.random.nextFloat() - this.random.nextFloat()), 1.0F);
+            this.playSound(sounds().purrSound().value(), 0.6F + 0.4F * (this.random.nextFloat() - this.random.nextFloat()), 1.0F);
         }
 
         this.updateLieDownAmount();
@@ -247,11 +251,8 @@ public class IrradiatedCat extends TamableAnimal {
         }
     }
 
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-        boolean flag = level.getMoonBrightness() > 0.9F;
-        ServerLevel serverlevel = level.getLevel();
-
 
         return spawnGroupData;
     }
@@ -263,18 +264,18 @@ public class IrradiatedCat extends TamableAnimal {
             if (this.isOwnedBy(player)) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     if (!this.level().isClientSide()) {
-                        FoodProperties foodproperties = itemstack.getFoodProperties(this);
+                        FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
                         this.heal(foodproperties != null ? (float)foodproperties.nutrition() : 1.0F);
                         this.usePlayerItem(player, hand, itemstack);
                     }
 
-                    return InteractionResult.sidedSuccess(this.level().isClientSide());
+                    return InteractionResult.SUCCESS;
                 }
 
                 InteractionResult interactionresult = super.mobInteract(player, hand);
                 if (!interactionresult.consumesAction()) {
                     this.setOrderedToSit(!this.isOrderedToSit());
-                    return InteractionResult.sidedSuccess(this.level().isClientSide());
+                    return InteractionResult.SUCCESS;
                 }
 
                 return interactionresult;
@@ -286,7 +287,7 @@ public class IrradiatedCat extends TamableAnimal {
                 this.setPersistenceRequired();
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         InteractionResult interactionresult1 = super.mobInteract(player, hand);
@@ -323,7 +324,7 @@ public class IrradiatedCat extends TamableAnimal {
     }
 
     private void tryToTame(Player player) {
-        if (this.random.nextInt(3) == 0 && !EventHooks.onAnimalTame(this, player)) {
+        if (this.random.nextInt(3) == 0) {
             this.tame(player);
             this.setOrderedToSit(true);
             this.level().broadcastEntityEvent(this, (byte)7);

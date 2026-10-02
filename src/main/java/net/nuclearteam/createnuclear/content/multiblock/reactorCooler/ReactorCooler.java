@@ -1,8 +1,9 @@
 package net.nuclearteam.createnuclear.content.multiblock.reactorCooler;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -12,9 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
+
+
 
 public class ReactorCooler extends Block implements IWrenchable {
     public ReactorCooler(Properties properties) {
@@ -36,9 +39,9 @@ public class ReactorCooler extends Block implements IWrenchable {
         FindController(pos, level, players, false);
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        super.onRemove(state, level, pos, newState, movedByPiston);
+    @Override // replaces onRemove
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);
     }

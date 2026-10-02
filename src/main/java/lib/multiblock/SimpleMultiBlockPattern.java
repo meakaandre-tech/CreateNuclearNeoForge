@@ -55,7 +55,7 @@ public final class SimpleMultiBlockPattern implements IMultiBlockPattern {
 
     @Override
     public void construct(Level level, BlockPos blockPos, BiPredicate<Character, BlockState> stateBiPredicate) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         if (level.getServer() == null) return;
         for (MultiBlockOffsetPos multiBlockOffsetPos : multiBlockOffsetPosList) {
             char character = multiBlockOffsetPos.caracter();
@@ -63,7 +63,7 @@ public final class SimpleMultiBlockPattern implements IMultiBlockPattern {
             if (stateSupplier != null) {
                 var pos = blockPos.offset(multiBlockOffsetPos.pos().rotate(Rotation.NONE));
                 var state = stateSupplier.get();
-                if (stateBiPredicate.test(character, state)) level.getServer().tell(new TickTask(3, () -> level.setBlock(pos, state, Block.UPDATE_ALL)));
+                if (stateBiPredicate.test(character, state)) level.getServer().schedule(new TickTask(3, () -> level.setBlock(pos, state, Block.UPDATE_ALL)));
             }
         }
     }

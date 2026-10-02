@@ -1,10 +1,8 @@
 package net.nuclearteam.createnuclear.foundation.item;
 
-import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.entry.ItemEntry;
+import net.nuclearteam.createnuclear.registry.entry.ItemEntry;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 import java.util.Arrays;
 import java.util.Iterator;

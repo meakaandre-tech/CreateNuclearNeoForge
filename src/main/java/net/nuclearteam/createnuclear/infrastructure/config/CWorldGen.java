@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.infrastructure.config;
 
-import net.createmod.catnip.config.ConfigBase;
 
 public class CWorldGen extends ConfigBase {
     public final ConfigBool disable = b(false, "disableWorldGen", Comments.disable);

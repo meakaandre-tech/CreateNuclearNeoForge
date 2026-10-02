@@ -1,15 +1,13 @@
 package net.nuclearteam.createnuclear.content.multiblock.controller;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.item.ItemHelper;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.foundation.block.IBE;
 import net.minecraft.ChatFormatting;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,20 +18,19 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
-import net.nuclearteam.createnuclear.*;
+import net.nuclearteam.createnuclear.CNBlockEntityTypes;
+import net.nuclearteam.createnuclear.CNBlocks;
+import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.content.multiblock.CNMultiblock;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.foundation.block.HorizontalDirectionalReactorBlock;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-@SuppressWarnings("deprecation")
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
 
@@ -53,19 +50,20 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ASSEMBLED, false);
     }
+
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, @Nullable Orientation orientation,
                                 boolean isMoving) {
         withBlockEntityDo(worldIn, pos, be -> be.created = false);
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.isClientSide)
-            return ItemInteractionResult.SUCCESS;
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (!(blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity)) return InteractionResult.TRY_WITH_EMPTY_HAND;
 
         ItemStack heldItem = player.getItemInHand(hand);
 
@@ -75,41 +73,38 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         else {
             if (heldItem.is(CNItems.REACTOR_BLUEPRINT.get()) && controllerBlockEntity.inventory.getItem(0).isEmpty()){
                 withBlockEntityDo(level, pos, be -> {
-                    be.inventory.setStackInSlot(0, heldItem);
+                    be.inventory.setItem(0, heldItem);
                     be.configuredPattern = heldItem;
 
                     player.setItemInHand(hand, ItemStack.EMPTY);
                 });
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             }
             else if (heldItem.isEmpty() && !controllerBlockEntity.inventory.getItem(0).isEmpty()) {
                 withBlockEntityDo(level, pos, be -> {
                     player.setItemInHand(hand, be.inventory.getItem(0));
-                    be.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    be.inventory.setItem(0, ItemStack.EMPTY);
                     be.configuredPattern = ItemStack.EMPTY;
                     be.total = 0.0;
                     be.rotate(be.getBlockState(), new BlockPos(be.getBlockPos().getX(), be.getBlockPos().getY() + (-3), be.getBlockPos().getZ()), be.getLevel(), 0, false);
                     be.notifyUpdate();
                 });
                 state.setValue(ASSEMBLED, false);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
 
             }
             else if (!heldItem.isEmpty() && !controllerBlockEntity.inventory.getItem(0).isEmpty()) {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
+    // replaces onRemove; the stored blueprint is dropped by the block entity (ReactorControllerBlockEntity#destroy)
     @Override
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
-            return;
-
-        withBlockEntityDo(worldIn, pos, be -> ItemHelper.dropContents(worldIn, pos, be.inventory));
-        worldIn.removeBlockEntity(pos);
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
+        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
 
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
 
@@ -135,7 +130,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
-        if (!entity.created)
+        if (entity == null || !entity.created)
             return;
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
@@ -148,6 +143,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create){
         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
+        if (entity == null)
+            return;
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
 
@@ -174,10 +171,13 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             }
         }
     }
+
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
             ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
             ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+            if (entity == null)
+                return;
 
             if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
                 entity.speed = rotation;

@@ -9,6 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 
+
 public record PatternData(int slot, ItemStack stack) {
     private static final ItemStack DEFAULT_STACK = ItemStack.EMPTY;
     public static final Codec<PatternData> CODEC = RecordCodecBuilder.create(i -> i.group(

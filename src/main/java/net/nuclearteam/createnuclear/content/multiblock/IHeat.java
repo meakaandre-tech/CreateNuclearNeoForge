@@ -1,15 +1,8 @@
 package net.nuclearteam.createnuclear.content.multiblock;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.utility.CreateLang;
-import net.createmod.catnip.lang.Lang;
-import net.createmod.catnip.lang.LangBuilder;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.ChatFormatting;
-import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CNTags.CNItemTags;
-import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
+
 
 public interface IHeat extends IWrenchable {
     enum HeatLevel {
@@ -66,52 +59,6 @@ public interface IHeat extends IWrenchable {
             return NONE;
         }
 
-        public static LangBuilder getFormattedHeatText(int heat) {
-            HeatLevel heatLevel = of(heat);
-            LangBuilder builder = CreateLang.builder(CreateNuclear.MOD_ID).text(TooltipHelper.makeProgressBar(5, heatLevel.ordinal()+1));
-
-            builder.translate("tooltip.heatLevel." + Lang.asId(heatLevel.name()))
-                    .space()
-                    .text("(")
-                    .add(CreateNuclearLang.number(Math.abs(heat)))
-                    .space()
-                    .translate("generic.unit.heat")
-                    .text(")")
-                    .space();
-
-            if (heatLevel == DANGER) builder.style(DANGER.getTextColor()).style(ChatFormatting.STRIKETHROUGH);
-            else builder.style(heatLevel.getTextColor());
-
-            return builder;
-        }
-
-        public static LangBuilder getFormattedItemText(ItemStack itemRod, Boolean IsEmpty) {
-            LangBuilder builder = Lang.builder(CreateNuclear.MOD_ID);
-
-            String tooltip = "unknown";
-
-            if (itemRod.is(CNItemTags.FUEL.tag)) {
-                tooltip = "uranium";
-            }
-
-            if (itemRod.is(CNItemTags.COOLER.tag)) {
-                tooltip = "graphene";
-            }
-
-            builder.translate("tooltip.item." + tooltip + ".rod")
-                    // when it's empty, we show the number minus one to display zero because we fake the item count as 1
-                    .add(CreateNuclearLang.number(Math.abs((IsEmpty ? itemRod.getCount() - 1 : itemRod.getCount()))))
-                    .style(ChatFormatting.BLUE)
-            ;
-
-            return builder;
-        }
-
-        public static LangBuilder getName(String name) {
-            LangBuilder builder = CreateNuclearLang.builder(CreateNuclear.MOD_ID);
-            builder.translate("gui." + name + ".info_header.title");
-
-            return builder;
-        }
+        // the formatted goggle texts (LangBuilder is client only in Create Fly) are in client.CNTooltips
     }
 }

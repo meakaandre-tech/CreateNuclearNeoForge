@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings({"unused"})
 public class IrradiatedCatRelaxOnOwnerGoal extends Goal {
@@ -88,7 +88,7 @@ public class IrradiatedCatRelaxOnOwnerGoal extends Goal {
 
     public void stop() {
         this.irradiatedCat.setLying(false);
-        float f = this.irradiatedCat.level().getTimeOfDay(1.0F);
+        float f = timeOfDay(this.irradiatedCat.level().getDefaultClockTime());
         if (this.ownerPlayer.getSleepTimer() >= 100 && (double)f > 0.77 && (double)f < 0.8 && (double)this.irradiatedCat.level().getRandom().nextFloat() < 0.7) {
             this.giveMorningGift();
         }
@@ -96,6 +96,13 @@ public class IrradiatedCatRelaxOnOwnerGoal extends Goal {
         this.onBedTicks = 0;
         this.irradiatedCat.setRelaxStateOne(false);
         this.irradiatedCat.getNavigation().stop();
+    }
+
+    // DimensionType.timeOfDay of the older versions
+    private static float timeOfDay(long dayTime) {
+        double d = Mth.frac((double) dayTime / 24000.0 - 0.25);
+        double e = 0.5 - Math.cos(d * Math.PI) / 2.0;
+        return (float) (d * 2.0 + e) / 3.0F;
     }
 
     private void giveMorningGift() {

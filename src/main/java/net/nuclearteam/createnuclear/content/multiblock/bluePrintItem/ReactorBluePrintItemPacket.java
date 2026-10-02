@@ -1,17 +1,15 @@
 package net.nuclearteam.createnuclear.content.multiblock.bluePrintItem;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecs;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.nuclearteam.createnuclear.CNPackets;
-import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
-public record ReactorBluePrintItemPacket(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) implements ServerboundPacketPayload {
+public record ReactorBluePrintItemPacket(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) implements CustomPacketPayload {
+    public static final Type<ReactorBluePrintItemPacket> TYPE = new Type<>(CreateNuclear.asResource("configure_reactor_pattern"));
 
     public static final StreamCodec<ByteBuf, ReactorBluePrintItemPacket> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.COMPOUND_TAG, ReactorBluePrintItemPacket::tag,
@@ -24,11 +22,10 @@ public record ReactorBluePrintItemPacket(CompoundTag tag, float heat, int graphi
     );
 
     @Override
-    public PacketTypeProvider getTypeProvider() {
-        return CNPackets.CONFIGURE_REACTOR_PATTERN;
+    public Type<ReactorBluePrintItemPacket> type() {
+        return TYPE;
     }
 
-    @Override
     public void handle(ServerPlayer player) {
         if (player.containerMenu instanceof ReactorBluePrintMenu c) {
             // On crée directement le state et on l’applique

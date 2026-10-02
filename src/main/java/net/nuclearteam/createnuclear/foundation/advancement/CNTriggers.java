@@ -1,28 +1,22 @@
 package net.nuclearteam.createnuclear.foundation.advancement;
 
-import com.simibubi.create.foundation.advancement.CriterionTriggerBase;
-import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
+import com.zurrtum.create.foundation.advancement.CreateTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 
-import java.util.LinkedList;
-import java.util.List;
-
+/**
+ * The built-in triggers of the advancements that have no vanilla criterion (the advancement files themselves
+ * are data now). As in the original they are registered in Create's namespace: create:&lt;id&gt;_builtin.
+ */
 public class CNTriggers {
-    private static final List<CriterionTriggerBase<?>> triggers = new LinkedList<>();
+    public static final CreateTrigger FULL_ANTI_RADIATION_ARMOR = addSimple("full_anti_radiation_armor");
+    public static final CreateTrigger AUTOMATIC_URANIUM = addSimple("automatic_uranium");
 
-    public static SimpleCreateTrigger addSimple(String id) {
-        return add(new SimpleCreateTrigger(id));
+    public static CreateTrigger addSimple(String id) {
+        Identifier location = Identifier.fromNamespaceAndPath("create", id);
+        return Registry.register(BuiltInRegistries.TRIGGER_TYPES, location.withSuffix("_builtin"), new CreateTrigger(location));
     }
 
-    private static <T extends CriterionTriggerBase<?>> T add(T instance) {
-        triggers.add(instance);
-        return instance;
-    }
-
-    public static void register() {
-        triggers.forEach(trigger -> {
-            Registry.register(BuiltInRegistries.TRIGGER_TYPES, trigger.getId(), trigger);
-        });
-    }
+    public static void register() {}
 }

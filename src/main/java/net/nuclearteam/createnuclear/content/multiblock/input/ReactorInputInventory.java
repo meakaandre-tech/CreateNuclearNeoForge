@@ -1,10 +1,8 @@
 package net.nuclearteam.createnuclear.content.multiblock.input;
 
-
+import com.zurrtum.create.infrastructure.items.ItemStackHandler;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.nuclearteam.createnuclear.CNItems;
-import org.jetbrains.annotations.NotNull;
 
 public class ReactorInputInventory extends ItemStackHandler {
     private final ReactorInputEntity be;
@@ -15,17 +13,17 @@ public class ReactorInputInventory extends ItemStackHandler {
     }
 
     @Override
-    protected void onContentsChanged(int slot) {
-        super.onContentsChanged(slot);
+    public void setChanged() {
         be.setChanged();
     }
 
+    // was isItemValid
     @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+    public boolean canPlaceItem(int slot, ItemStack stack) {
         return switch (slot) {
             case 0 -> CNItems.URANIUM_ROD.isIn(stack);
             case 1 -> CNItems.GRAPHITE_ROD.isIn(stack);
-            default -> !super.isItemValid(slot, stack);
+            default -> false;
         };
     }
 }

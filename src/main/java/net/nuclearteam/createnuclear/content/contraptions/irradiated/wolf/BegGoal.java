@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.EnumSet;
 
 public class BegGoal extends Goal {
@@ -30,7 +30,7 @@ public class BegGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        this.player = this.level.getNearestPlayer(this.begTargeting, this.irradiatedWolf);
+        this.player = this.level instanceof net.minecraft.server.level.ServerLevel serverLevel ? serverLevel.getNearestPlayer(this.begTargeting, this.irradiatedWolf) : null;
         return this.player == null ? false : this.playerHoldingInteresting(this.player);
     }
 

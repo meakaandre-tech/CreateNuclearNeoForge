@@ -1,21 +1,15 @@
 package net.nuclearteam.createnuclear.content.multiblock.core;
 
-import lib.multiblock.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CNBlocks;
-import net.nuclearteam.createnuclear.CNDataComponents;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.multiblock.IHeat;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingEntity;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 
-import static net.nuclearteam.createnuclear.content.multiblock.CNMultiblock.*;
-
-@SuppressWarnings({"unused"})
 public class ReactorCoreEntity extends ReactorCasingEntity {
     private int countdownTicks = 0;
 
@@ -46,25 +40,6 @@ public class ReactorCoreEntity extends ReactorCasingEntity {
 
     private void explodeReactorCore(Level world, BlockPos pos) {
         level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
-    }
-
-    private static BlockPos FindController(char character) {
-        return SimpleMultiBlockAislePatternBuilder.start()
-                .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
-                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                .aisle(AAIAA, ADADA, BACAB, ADADA, AAAA)
-                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
-                .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
-                .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
-                .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
-                .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
-                .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))
-                .getDistanceController(character);
     }
 
     private BlockPos getBlockPosForReactor() {

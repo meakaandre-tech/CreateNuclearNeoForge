@@ -1,34 +1,24 @@
 package net.nuclearteam.createnuclear.content.multiblock.input;
 
-import com.simibubi.create.foundation.gui.menu.MenuBase;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import com.zurrtum.create.foundation.gui.menu.MenuBase;
+import com.zurrtum.create.foundation.gui.menu.MenuSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
 import net.nuclearteam.createnuclear.CNMenus;
+
 
 public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
 
-    public ReactorInputMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
-        super(type, id, inv, extraData);
-    }
-
-    public ReactorInputMenu(MenuType<?> type, int id, Inventory inv, ReactorInputEntity contentHolder) {
-        super(type, id, inv, contentHolder);
+    public ReactorInputMenu(int id, Inventory inv, ReactorInputEntity contentHolder) {
+        super(CNMenus.SLOT_ITEM_STORAGE, id, inv, contentHolder);
     }
 
     public static ReactorInputMenu create(int id, Inventory inv, ReactorInputEntity contentHolder) {
-        return new ReactorInputMenu(CNMenus.SLOT_ITEM_STORAGE.get(), id, inv, contentHolder);
+        return new ReactorInputMenu(id, inv, contentHolder);
     }
 
     @Override
@@ -43,17 +33,7 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
 
 
-    @Override
-    protected ReactorInputEntity createOnClient(RegistryFriendlyByteBuf extraData) {
-        ClientLevel world = Minecraft.getInstance().level;
-        BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
-
-        if (blockEntity instanceof ReactorInputEntity reactorInput) {
-            reactorInput.readClient(extraData.readNbt(), extraData.registryAccess());
-            return reactorInput;
-        }
-        return null;
-    }
+    // the client side copy of the block entity is resolved by ReactorInputScreen.create
 
     @Override
     protected void initAndReadInventory(ReactorInputEntity contentHolder) {
@@ -73,8 +53,8 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
             }
         }
 
-        Slot slot1 = new SlotItemHandler(contentHolder.inventory, 0, 24, 29);
-        Slot slot2 = new SlotItemHandler(contentHolder.inventory, 1, 57, 29);
+        Slot slot1 = new MenuSlot(contentHolder.inventory, 0, 24, 29);
+        Slot slot2 = new MenuSlot(contentHolder.inventory, 1, 57, 29);
 
         addSlot(slot1);
         addSlot(slot2);
@@ -87,12 +67,12 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
     }
 
     @Override
-    public void clicked(int slotId, int button, ClickType clickType, Player player) {
-        if (clickType == ClickType.THROW) {
+    public void clicked(int slotId, int button, ContainerInput clickType, Player player) {
+        if (clickType == ContainerInput.THROW) {
             int[] targetSlotIds = {9, 18, 27, 0, 1, 28, 19, 10, 16, 17, 26, 25, 34, 35, 8, 7};
             for (int id : targetSlotIds) {
                 if (slotId == id) {
-                    clickType = ClickType.PICKUP;
+                    clickType = ContainerInput.PICKUP;
                     super.clicked(slotId, button, clickType, player);
                 }
             }

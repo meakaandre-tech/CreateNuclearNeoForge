@@ -1,7 +1,7 @@
 package net.nuclearteam.createnuclear.content.enriching.campfire;
 
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.zurrtum.create.api.behaviour.BlockEntityBehaviour;
+import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+
+
 
 @SuppressWarnings("unused")
 public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
@@ -18,7 +20,7 @@ public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
 
     public static void particleTick(Level level, BlockPos pos, BlockState state, EnrichingCampfireBlockEntity blockEntity) {
         int i;
-        RandomSource randomSource = level.random;
+        RandomSource randomSource = level.getRandom();
         if (randomSource.nextFloat() < 0.11f) {
             for (i = 0; i < randomSource.nextInt(2) + 2; ++i) {
                 EnrichingCampfireBlock.makeParticles(level, pos);
@@ -39,7 +41,7 @@ public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    public void addBehaviours(List<BlockEntityBehaviour<?>> behaviours) {
 
     }
 }

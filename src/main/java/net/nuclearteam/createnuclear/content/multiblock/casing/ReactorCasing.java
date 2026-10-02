@@ -1,11 +1,11 @@
 package net.nuclearteam.createnuclear.content.multiblock.casing;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.IBE;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,14 +24,10 @@ import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorContro
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInput;
 import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-@SuppressWarnings({"deprecation", "unused"})
 public class ReactorCasing extends Block implements IWrenchable, IBE<ReactorCasingEntity> {
     private final TypeBlock typeBlock;
 
@@ -39,7 +35,6 @@ public class ReactorCasing extends Block implements IWrenchable, IBE<ReactorCasi
         super(properties);
         this.typeBlock = tBlock;
     }
-
 
     @Override // Called when the block is placed on the world
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
@@ -55,9 +50,9 @@ public class ReactorCasing extends Block implements IWrenchable, IBE<ReactorCasi
         FindController(pos, level, players, false);
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        super.onRemove(state, level, pos, newState, movedByPiston);
+    @Override // replaces onRemove
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);
     }

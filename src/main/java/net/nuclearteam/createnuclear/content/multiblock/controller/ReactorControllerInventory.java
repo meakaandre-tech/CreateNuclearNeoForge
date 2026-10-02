@@ -1,31 +1,30 @@
 package net.nuclearteam.createnuclear.content.multiblock.controller;
 
-import com.simibubi.create.foundation.item.SmartInventory;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import com.zurrtum.create.infrastructure.items.ItemStackHandler;
 import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CNItems;
 
-@MethodsReturnNonnullByDefault
-public class ReactorControllerInventory extends SmartInventory {
+/** Single slot holding the configured blueprint (was a Create SmartInventory with a stack size of 1). */
+public class ReactorControllerInventory extends ItemStackHandler {
     private final ReactorControllerBlockEntity be;
 
     public ReactorControllerInventory(ReactorControllerBlockEntity be) {
-        super(1, be, 1, false);
+        super(1);
         this.be = be;
     }
 
-
     @Override
-    public ItemStack removeItemNoUpdate(int index) {
-        be.setChanged();
-        return super.removeItemNoUpdate(index);
+    public int getMaxStackSize() {
+        return 1;
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack resource) {
-        return switch (slot) {
-            case 0 -> CNItems.REACTOR_BLUEPRINT.isIn(resource);
-            default -> !super.isItemValid(slot, resource);
-        };
+    public void setChanged() {
+        be.setChanged();
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack resource) {
+        return slot == 0 && CNItems.REACTOR_BLUEPRINT.isIn(resource);
     }
 }

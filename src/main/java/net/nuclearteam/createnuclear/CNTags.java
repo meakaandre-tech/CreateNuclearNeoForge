@@ -1,14 +1,9 @@
 package net.nuclearteam.createnuclear;
 
-import net.createmod.catnip.lang.Lang;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,16 +16,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
+import java.util.Locale;
+
 import static net.nuclearteam.createnuclear.CNTags.NameSpace.*;
+
+
 
 @SuppressWarnings({"unused", "deprecation"})
 public class CNTags {
-    public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
+    public static <T> TagKey<T> optionalTag(Registry<T> registry, Identifier id) {
         return TagKey.create(registry.key(), id);
     }
 
     public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
-        return optionalTag(registry, ResourceLocation.fromNamespaceAndPath(NEO_FORGE.id, path));
+        return optionalTag(registry, Identifier.fromNamespaceAndPath(NEO_FORGE.id, path));
     }
 
     public static TagKey<Block> forgeBlockTag(String path) {
@@ -97,12 +96,8 @@ public class CNTags {
         }
 
         CNBlockTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagenDefault) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(nameSpace.id, path == null ? Lang.asId(name()) : path);
-            if (optional) {
-                tag = optionalTag(BuiltInRegistries.BLOCK, id);
-            } else {
-                tag = BlockTags.create(id);
-            }
+            Identifier id = Identifier.fromNamespaceAndPath(nameSpace.id, path == null ? name().toLowerCase(Locale.ROOT) : path);
+            tag = optionalTag(BuiltInRegistries.BLOCK, id);
             this.alwaysDatagen = alwaysDatagenDefault;
         }
 
@@ -158,12 +153,8 @@ public class CNTags {
         }
 
         CNItemTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagenDefault) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(nameSpace.id, path == null ? Lang.asId(name()) : path);
-            if (optional) {
-                tag = optionalTag(BuiltInRegistries.ITEM, id);
-            } else {
-                tag = ItemTags.create(id);
-            }
+            Identifier id = Identifier.fromNamespaceAndPath(nameSpace.id, path == null ? name().toLowerCase(Locale.ROOT) : path);
+            tag = optionalTag(BuiltInRegistries.ITEM, id);
             this.alwaysDatagen = alwaysDatagenDefault;
         }
 
@@ -202,17 +193,13 @@ public class CNTags {
         }
 
         CNFluidTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagenDefault) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(nameSpace.id, path == null ? Lang.asId(name()) : path);
-            if (optional) {
-                tag = optionalTag(BuiltInRegistries.FLUID, id);
-            } else {
-                tag = FluidTags.create(id);
-            }
+            Identifier id = Identifier.fromNamespaceAndPath(nameSpace.id, path == null ? name().toLowerCase(Locale.ROOT) : path);
+            tag = optionalTag(BuiltInRegistries.FLUID, id);
             this.alwaysDatagen = alwaysDatagenDefault;
         }
 
         public boolean matches(Fluid fluid) {
-            return fluid.is(tag);
+            return fluid.builtInRegistryHolder().is(tag);
         }
 
         public boolean matches(FluidState stack) {
@@ -246,17 +233,13 @@ public class CNTags {
         }
 
         CNEntityTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagenDefault) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(nameSpace.id, path == null ? Lang.asId(name()) : path);
-            if (optional) {
-                tag = optionalTag(BuiltInRegistries.ENTITY_TYPE, id);
-            } else {
-                tag = TagKey.create(Registries.ENTITY_TYPE, id);
-            }
+            Identifier id = Identifier.fromNamespaceAndPath(nameSpace.id, path == null ? name().toLowerCase(Locale.ROOT) : path);
+            tag = optionalTag(BuiltInRegistries.ENTITY_TYPE, id);
             this.alwaysDatagen = alwaysDatagenDefault;
         }
 
         public boolean matches(EntityType<?> type) {
-            return type.is(tag);
+            return type.builtInRegistryHolder().is(tag);
         }
 
         public boolean matches(Entity entity) {
@@ -290,18 +273,13 @@ public class CNTags {
         }
 
         CNRecipeSerializerTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? Lang.asId(name()) : path);
-            if (optional) {
-                tag = optionalTag(BuiltInRegistries.RECIPE_SERIALIZER, id);
-            } else {
-                tag = TagKey.create(Registries.RECIPE_SERIALIZER, id);
-            }
+            Identifier id = Identifier.fromNamespaceAndPath(namespace.id, path == null ? name().toLowerCase(Locale.ROOT) : path);
+            tag = optionalTag(BuiltInRegistries.RECIPE_SERIALIZER, id);
             this.alwaysDatagen = alwaysDatagen;
         }
 
         public boolean matches(RecipeSerializer<?> recipeSerializer) {
-            ResourceKey<RecipeSerializer<?>> key = BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer).orElseThrow();
-            return BuiltInRegistries.RECIPE_SERIALIZER.getHolder(key).orElseThrow().is(tag);
+            return BuiltInRegistries.RECIPE_SERIALIZER.wrapAsHolder(recipeSerializer).is(tag);
         }
 
         private static void init() {}
