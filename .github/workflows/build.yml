@@ -93,7 +93,7 @@ jobs:
             cp ../libs/create-fly-26.2.jar mods/
             cp $(ls ../build/libs/*.jar | grep -v sources | head -1) mods/
             echo "eula=true" > eula.txt
-            printf 'level-seed=12345\nonline-mode=false\nmax-tick-time=-1\nview-distance=4\n' > server.properties
+            printf 'level-seed=12345\nonline-mode=false\nmax-tick-time=-1\nview-distance=4\ngamemode=creative\ndifficulty=peaceful\n' > server.properties
             mkfifo in.fifo
             (java -Xmx4G -jar server.jar --nogui < in.fifo > server.log 2>&1; echo "EXIT $?" >> server.log) &
             exec 3> in.fifo
@@ -114,6 +114,57 @@ jobs:
             cp server.log /tmp/ci/server.log
             cp -r crash-reports /tmp/ci/ 2>/dev/null || true
             cd ..
+          fi
+      - name: Client smoke test
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/ci
+          if [ -f .github/smoke-client ] && [ -d server/world ]; then
+            exec > >(tee /tmp/ci/smoke-client.txt) 2>&1
+            set -x
+            sudo apt-get update -q >/dev/null 2>&1
+            sudo apt-get install -y -q xvfb xdotool imagemagick libgl1-mesa-dri >/dev/null 2>&1
+            mkdir -p run/mods run/saves
+            cp libs/create-fly-26.2.jar run/mods/
+            cp -r server/world run/saves/world
+            rm -f run/saves/world/session.lock
+            printf 'pauseOnLostFocus:false\nonboardAccessibility:false\ntutorialStep:none\nnarrator:0\nrenderDistance:5\nmaxFps:30\nsoundCategory_master:0.0\n' > run/options.txt
+            export LIBGL_ALWAYS_SOFTWARE=1
+            Xvfb :99 -screen 0 1280x720x24 >/dev/null 2>&1 &
+            export DISPLAY=:99
+            sleep 2
+            (timeout 780 ./gradlew runClient --no-daemon -Dorg.gradle.console=plain --args="--quickPlaySingleplayer world" > client-gradle.log 2>&1; echo "EXIT $?" >> client-gradle.log) &
+            for i in $(seq 1 130); do
+              if grep -q 'logged in with entity id\|joined the game' run/logs/latest.log 2>/dev/null || grep -q '^EXIT' client-gradle.log; then break; fi
+              sleep 5
+            done
+            n=0
+            shot() { n=$((n+1)); import -window root /tmp/ci/client-$n.png; }
+            if grep -q 'logged in with entity id\|joined the game' run/logs/latest.log 2>/dev/null; then
+              sleep 45
+              shot
+              if [ -f .github/smoke-client-keys.txt ]; then
+                while read -r kind arg; do
+                  case "$kind" in
+                    key) xdotool key "$arg";;
+                    type) xdotool type --delay 40 "$arg";;
+                    sleep) sleep "$arg";;
+                    shot) shot;;
+                    click) xdotool mousemove $arg click 1;;
+                    rclick) xdotool mousemove $arg click 3;;
+                  esac
+                done < .github/smoke-client-keys.txt
+              fi
+            else
+              shot
+            fi
+            pkill -f 'net.fabricmc' ; pkill -f KnotClient; sleep 5; pkill java
+            tail -c 300000 client-gradle.log > /tmp/ci/client-gradle.log
+            cp run/logs/latest.log /tmp/ci/client.log 2>/dev/null
+            cp -r run/crash-reports /tmp/ci/client-crash-reports 2>/dev/null
           fi
       - name: Publish build log to the ci-logs branch
         if: always()
