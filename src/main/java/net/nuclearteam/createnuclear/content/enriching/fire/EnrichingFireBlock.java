@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.content.enriching.fire;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -12,19 +11,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CNTags.CNBlockTags;
 
 public class EnrichingFireBlock extends BaseFireBlock {
-    public static final MapCodec<EnrichingFireBlock> CODEC = simpleCodec(EnrichingFireBlock::new);
-
     public EnrichingFireBlock(Properties properties, float fireDamage) {
         super(properties, fireDamage);
     }
 
     public EnrichingFireBlock(Properties properties) {
         super(properties, 1f);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseFireBlock> codec() {
-        return CODEC;
     }
 
     public BlockState getStateForPlacement() {

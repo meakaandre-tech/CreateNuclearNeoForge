@@ -1,5 +1,7 @@
 package net.nuclearteam.createnuclear.content.multiblock.frame;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -101,7 +103,7 @@ public class ReactorFrame extends Block implements IWrenchable {
         FindController(pos, level, players, true);
     }
     @Override // called when the player destroys the block, with or without a tool
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);

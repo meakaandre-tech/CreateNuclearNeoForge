@@ -62,7 +62,7 @@ public class IrradiatedCatRenderer extends MobRenderer<IrradiatedCat, Irradiated
         float f = state.lieDownAmount;
         if (f > 0.0F) {
             poseStack.translate(0.4F * f, 0.15F * f, 0.1F * f);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.rotLerp(f, 0.0F, 90.0F)));
+            poseStack.rotate(Axis.ZP.rotationDegrees(Mth.rotLerp(f, 0.0F, 90.0F)));
             if (state.nextToSleepingPlayer) {
                 poseStack.translate(0.15F * f, 0.0F, 0.0F);
             }

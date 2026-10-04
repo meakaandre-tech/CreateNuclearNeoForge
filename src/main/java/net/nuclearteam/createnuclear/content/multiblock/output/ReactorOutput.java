@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.content.multiblock.output;
 
+import net.minecraft.server.level.ServerPlayer;
 import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import com.zurrtum.create.content.kinetics.base.DirectionalKineticBlock;
 import com.zurrtum.create.foundation.block.IBE;
@@ -79,7 +80,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);

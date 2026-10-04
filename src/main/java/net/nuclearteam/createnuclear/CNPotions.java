@@ -1,14 +1,10 @@
 package net.nuclearteam.createnuclear;
 
-import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 
 public class CNPotions {
 
@@ -25,12 +21,6 @@ public class CNPotions {
     }
 
     public static void register() {
-        FabricPotionBrewingBuilder.BUILD.register(CNPotions::registerPotionsRecipes);
-    }
-
-    public static void registerPotionsRecipes(PotionBrewing.Builder builder) {
-        builder.addMix(Potions.AWKWARD, CNItems.ENRICHED_YELLOWCAKE.get(), POTION_1);
-        builder.addMix(POTION_1, Items.REDSTONE, POTION_AUGMENT_1);
-        builder.addMix(POTION_1, Items.GLOWSTONE_DUST, POTION_2);
+        // 26.3: brewing is data (data/createnuclear/recipe/brewing/*.json), nothing to register in code
     }
 }

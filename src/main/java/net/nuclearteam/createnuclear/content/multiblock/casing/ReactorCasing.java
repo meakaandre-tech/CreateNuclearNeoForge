@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.content.multiblock.casing;
 
+import net.minecraft.server.level.ServerPlayer;
 import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import com.zurrtum.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -44,7 +45,7 @@ public class ReactorCasing extends Block implements IWrenchable, IBE<ReactorCasi
     }
 
     @Override // called when the player destroys the block, with or without a tool
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);

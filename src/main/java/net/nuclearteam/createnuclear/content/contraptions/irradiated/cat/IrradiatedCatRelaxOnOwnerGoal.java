@@ -109,7 +109,7 @@ public class IrradiatedCatRelaxOnOwnerGoal extends Goal {
         RandomSource randomsource = this.irradiatedCat.getRandom();
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
         blockpos$mutableblockpos.set(this.irradiatedCat.isLeashed() ? this.irradiatedCat.getLeashHolder().blockPosition() : this.irradiatedCat.blockPosition());
-        this.irradiatedCat.randomTeleport(blockpos$mutableblockpos.getX() + randomsource.nextInt(11) - 5, blockpos$mutableblockpos.getY() + randomsource.nextInt(5) - 2, blockpos$mutableblockpos.getZ() + randomsource.nextInt(11) - 5, false);
+        this.irradiatedCat.randomTeleport(blockpos$mutableblockpos.getX() + randomsource.nextInt(11) - 5, blockpos$mutableblockpos.getY() + randomsource.nextInt(5) - 2, blockpos$mutableblockpos.getZ() + randomsource.nextInt(11) - 5, false, net.minecraft.tags.BlockTags.CAT_DOES_NOT_TELEPORT_TO);
         blockpos$mutableblockpos.set(this.irradiatedCat.blockPosition());
         LootTable loottable = this.irradiatedCat.level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT);
         LootParams lootparams = (new LootParams.Builder((ServerLevel)this.irradiatedCat.level())).withParameter(LootContextParams.ORIGIN, this.irradiatedCat.position()).withParameter(LootContextParams.THIS_ENTITY, this.irradiatedCat).create(LootContextParamSets.GIFT);

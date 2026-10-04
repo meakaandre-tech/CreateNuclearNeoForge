@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.content.multiblock.controller;
 
+import net.minecraft.server.level.ServerPlayer;
 import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import com.zurrtum.create.foundation.block.IBE;
 import net.minecraft.ChatFormatting;
@@ -128,7 +129,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);

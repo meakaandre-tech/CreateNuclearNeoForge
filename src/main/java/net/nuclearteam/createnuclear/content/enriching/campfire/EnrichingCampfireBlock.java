@@ -53,13 +53,6 @@ import org.jspecify.annotations.Nullable;
 
 
 public class EnrichingCampfireBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, IBE<EnrichingCampfireBlockEntity> {
-    public static final MapCodec<EnrichingCampfireBlock> CODEC = RecordCodecBuilder.mapCodec(
-            (enrichChampFireBlock) ->
-                    enrichChampFireBlock
-                            .group(Codec.intRange(0, 1000)
-                            .fieldOf("fire_damage")
-                            .forGetter((p_304360_) -> p_304360_.fireDamage), propertiesCodec()).apply(enrichChampFireBlock, EnrichingCampfireBlock::new));
-
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -111,11 +104,6 @@ public class EnrichingCampfireBlock extends BaseEntityBlock implements SimpleWat
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
         return SHAPE;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override
