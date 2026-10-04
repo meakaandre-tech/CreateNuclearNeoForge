@@ -1,0 +1,361 @@
+Downloading Minecraft server
+Installing Fabric Loader 0.19.5(26.3) on the server
+Downloading required files
+Downloading library org.ow2.asm:asm:9.10.1
+Downloading library org.ow2.asm:asm-analysis:9.10.1
+Downloading library org.ow2.asm:asm-commons:9.10.1
+Downloading library org.ow2.asm:asm-tree:9.10.1
+Downloading library org.ow2.asm:asm-util:9.10.1
+Downloading library net.fabricmc:sponge-mixin:0.17.4+mixin.0.8.7
+Downloading library net.fabricmc:fabric-loader:0.19.5
+Generating server launch JAR
+Unpacking 26.3/server-26.3.jar (versions:26.3) to versions/26.3/server-26.3.jar
+Unpacking at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar (libraries:at.yawk.lz4:lz4-java:1.10.1) to libraries/at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar
+Unpacking com/azure/azure-json/1.4.0/azure-json-1.4.0.jar (libraries:com.azure:azure-json:1.4.0) to libraries/com/azure/azure-json/1.4.0/azure-json-1.4.0.jar
+Unpacking com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar (libraries:com.github.oshi:oshi-core:6.9.0) to libraries/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar
+Unpacking com/google/code/gson/gson/2.14.0/gson-2.14.0.jar (libraries:com.google.code.gson:gson:2.14.0) to libraries/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar
+Unpacking com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar (libraries:com.google.guava:failureaccess:1.0.3) to libraries/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+Unpacking com/google/guava/guava/33.6.0-jre/guava-33.6.0-jre.jar (libraries:com.google.guava:guava:33.6.0-jre) to libraries/com/google/guava/guava/33.6.0-jre/guava-33.6.0-jre.jar
+Unpacking com/microsoft/azure/msal4j/1.24.1/msal4j-1.24.1.jar (libraries:com.microsoft.azure:msal4j:1.24.1) to libraries/com/microsoft/azure/msal4j/1.24.1/msal4j-1.24.1.jar
+Unpacking com/mojang/authlib/10.0.77/authlib-10.0.77.jar (libraries:com.mojang:authlib:10.0.77) to libraries/com/mojang/authlib/10.0.77/authlib-10.0.77.jar
+Unpacking com/mojang/brigadier/1.3.11/brigadier-1.3.11.jar (libraries:com.mojang:brigadier:1.3.11) to libraries/com/mojang/brigadier/1.3.11/brigadier-1.3.11.jar
+Unpacking com/mojang/datafixerupper/10.0.21/datafixerupper-10.0.21.jar (libraries:com.mojang:datafixerupper:10.0.21) to libraries/com/mojang/datafixerupper/10.0.21/datafixerupper-10.0.21.jar
+Unpacking com/mojang/jtracy/1.14.38/jtracy-1.14.38.jar (libraries:com.mojang:jtracy:1.14.38) to libraries/com/mojang/jtracy/1.14.38/jtracy-1.14.38.jar
+Unpacking com/mojang/logging/1.7.12/logging-1.7.12.jar (libraries:com.mojang:logging:1.7.12) to libraries/com/mojang/logging/1.7.12/logging-1.7.12.jar
+Unpacking commons-io/commons-io/2.20.0/commons-io-2.20.0.jar (libraries:commons-io:commons-io:2.20.0) to libraries/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar
+Unpacking io/netty/netty-buffer/4.2.16.Final/netty-buffer-4.2.16.Final.jar (libraries:io.netty:netty-buffer:4.2.16.Final) to libraries/io/netty/netty-buffer/4.2.16.Final/netty-buffer-4.2.16.Final.jar
+Unpacking io/netty/netty-codec-base/4.2.16.Final/netty-codec-base-4.2.16.Final.jar (libraries:io.netty:netty-codec-base:4.2.16.Final) to libraries/io/netty/netty-codec-base/4.2.16.Final/netty-codec-base-4.2.16.Final.jar
+Unpacking io/netty/netty-codec-compression/4.2.16.Final/netty-codec-compression-4.2.16.Final.jar (libraries:io.netty:netty-codec-compression:4.2.16.Final) to libraries/io/netty/netty-codec-compression/4.2.16.Final/netty-codec-compression-4.2.16.Final.jar
+Unpacking io/netty/netty-codec-http/4.2.16.Final/netty-codec-http-4.2.16.Final.jar (libraries:io.netty:netty-codec-http:4.2.16.Final) to libraries/io/netty/netty-codec-http/4.2.16.Final/netty-codec-http-4.2.16.Final.jar
+Unpacking io/netty/netty-common/4.2.16.Final/netty-common-4.2.16.Final.jar (libraries:io.netty:netty-common:4.2.16.Final) to libraries/io/netty/netty-common/4.2.16.Final/netty-common-4.2.16.Final.jar
+Unpacking io/netty/netty-handler/4.2.16.Final/netty-handler-4.2.16.Final.jar (libraries:io.netty:netty-handler:4.2.16.Final) to libraries/io/netty/netty-handler/4.2.16.Final/netty-handler-4.2.16.Final.jar
+Unpacking io/netty/netty-resolver/4.2.16.Final/netty-resolver-4.2.16.Final.jar (libraries:io.netty:netty-resolver:4.2.16.Final) to libraries/io/netty/netty-resolver/4.2.16.Final/netty-resolver-4.2.16.Final.jar
+Unpacking io/netty/netty-transport/4.2.16.Final/netty-transport-4.2.16.Final.jar (libraries:io.netty:netty-transport:4.2.16.Final) to libraries/io/netty/netty-transport/4.2.16.Final/netty-transport-4.2.16.Final.jar
+Unpacking io/netty/netty-transport-classes-epoll/4.2.16.Final/netty-transport-classes-epoll-4.2.16.Final.jar (libraries:io.netty:netty-transport-classes-epoll:4.2.16.Final) to libraries/io/netty/netty-transport-classes-epoll/4.2.16.Final/netty-transport-classes-epoll-4.2.16.Final.jar
+Unpacking io/netty/netty-transport-classes-kqueue/4.2.16.Final/netty-transport-classes-kqueue-4.2.16.Final.jar (libraries:io.netty:netty-transport-classes-kqueue:4.2.16.Final) to libraries/io/netty/netty-transport-classes-kqueue/4.2.16.Final/netty-transport-classes-kqueue-4.2.16.Final.jar
+Unpacking io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar (libraries:io.netty:netty-transport-native-epoll:4.2.16.Final:linux-x86_64) to libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar
+Unpacking io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar (libraries:io.netty:netty-transport-native-epoll:4.2.16.Final:linux-aarch_64) to libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar
+Unpacking io/netty/netty-transport-native-kqueue/4.2.16.Final/netty-transport-native-kqueue-4.2.16.Final-osx-x86_64.jar (libraries:io.netty:netty-transport-native-kqueue:4.2.16.Final:osx-x86_64) to libraries/io/netty/netty-transport-native-kqueue/4.2.16.Final/netty-transport-native-kqueue-4.2.16.Final-osx-x86_64.jar
+Unpacking io/netty/netty-transport-native-kqueue/4.2.16.Final/netty-transport-native-kqueue-4.2.16.Final-osx-aarch_64.jar (libraries:io.netty:netty-transport-native-kqueue:4.2.16.Final:osx-aarch_64) to libraries/io/netty/netty-transport-native-kqueue/4.2.16.Final/netty-transport-native-kqueue-4.2.16.Final-osx-aarch_64.jar
+Unpacking io/netty/netty-transport-native-unix-common/4.2.16.Final/netty-transport-native-unix-common-4.2.16.Final.jar (libraries:io.netty:netty-transport-native-unix-common:4.2.16.Final) to libraries/io/netty/netty-transport-native-unix-common/4.2.16.Final/netty-transport-native-unix-common-4.2.16.Final.jar
+Unpacking it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar (libraries:it.unimi.dsi:fastutil:8.5.18) to libraries/it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar
+Unpacking net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar (libraries:net.java.dev.jna:jna:5.17.0) to libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar
+Unpacking net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar (libraries:net.java.dev.jna:jna-platform:5.17.0) to libraries/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar
+Unpacking net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar (libraries:net.sf.jopt-simple:jopt-simple:5.0.4) to libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar
+Unpacking org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar (libraries:org.apache.commons:commons-lang3:3.20.0) to libraries/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar
+Unpacking org/apache/logging/log4j/log4j-api/2.26.0/log4j-api-2.26.0.jar (libraries:org.apache.logging.log4j:log4j-api:2.26.0) to libraries/org/apache/logging/log4j/log4j-api/2.26.0/log4j-api-2.26.0.jar
+Unpacking org/apache/logging/log4j/log4j-core/2.26.0/log4j-core-2.26.0.jar (libraries:org.apache.logging.log4j:log4j-core:2.26.0) to libraries/org/apache/logging/log4j/log4j-core/2.26.0/log4j-core-2.26.0.jar
+Unpacking org/apache/logging/log4j/log4j-slf4j2-impl/2.26.0/log4j-slf4j2-impl-2.26.0.jar (libraries:org.apache.logging.log4j:log4j-slf4j2-impl:2.26.0) to libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.26.0/log4j-slf4j2-impl-2.26.0.jar
+Unpacking org/joml/joml/1.10.9/joml-1.10.9.jar (libraries:org.joml:joml:1.10.9) to libraries/org/joml/joml/1.10.9/joml-1.10.9.jar
+Unpacking org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar (libraries:org.jspecify:jspecify:1.0.0) to libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+Unpacking org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar (libraries:org.slf4j:slf4j-api:2.0.17) to libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+Starting net.fabricmc.loader.impl.game.minecraft.BundlerClassPathCapture
+[12:50:20] [main/INFO]: Loading Minecraft 26.3 with Fabric Loader 0.19.5
+[12:50:20] [main/INFO]: Mappings not present!
+[12:50:20] [main/INFO]: Loading 44 mods:
+	- create 6.0.9-1
+	- createnuclear 1.3.2-beta.3+26.3
+	- fabric-api 0.161.0+26.3
+	   |-- fabric-advancement-api-v1 1.0.0+38c7a2d55d
+	   |-- fabric-api-base 2.0.6+fcdff87f5d
+	   |-- fabric-api-lookup-api-v1 2.0.24+3434d6d95d
+	   |-- fabric-biome-api-v1 20.0.9+74ed1ea55d
+	   |-- fabric-block-api-v1 3.1.0+0ae6f9115d
+	   |-- fabric-block-getter-api-v2 2.0.9+3434d6d95d
+	   |-- fabric-command-api-v2 3.1.2+fcdff87f5d
+	   |-- fabric-content-registries-v0 15.0.4+74ed1ea55d
+	   |-- fabric-convention-tags-v2 4.10.3+6b5b47fd5d
+	   |-- fabric-crash-report-info-v1 1.0.7+fcdff87f5d
+	   |-- fabric-creative-tab-api-v1 5.0.21+fcdff87f5d
+	   |-- fabric-data-attachment-api-v1 2.2.30+3434d6d95d
+	   |-- fabric-data-generation-api-v1 27.2.4+427eab975d
+	   |-- fabric-debug-api-v1 1.0.4+3434d6d95d
+	   |-- fabric-dimensions-v1 5.1.19+47f74c985d
+	   |-- fabric-entity-events-v1 6.0.4+3434d6d95d
+	   |-- fabric-events-interaction-v0 5.3.6+3434d6d95d
+	   |-- fabric-game-rule-api-v1 4.0.10+3434d6d95d
+	   |-- fabric-item-api-v1 14.7.0+cf6bc2db5d
+	   |-- fabric-lifecycle-events-v1 4.1.9+ffef5f675d
+	   |-- fabric-loot-api-v3 4.0.8+4068fd645d
+	   |-- fabric-menu-api-v1 2.0.27+ed66f0a35d
+	   |-- fabric-message-api-v1 7.0.10+3434d6d95d
+	   |-- fabric-networking-api-v1 6.3.8+fcdff87f5d
+	   |-- fabric-object-builder-api-v1 24.1.9+3434d6d95d
+	   |-- fabric-particles-v1 5.0.24+3434d6d95d
+	   |-- fabric-permission-api-v1 1.0.8+fcdff87f5d
+	   |-- fabric-recipe-api-v1 10.0.8+fcdff87f5d
+	   |-- fabric-registry-sync-v0 8.0.1+fcdff87f5d
+	   |-- fabric-rendering-fluids-v1 6.0.6+3434d6d95d
+	   |-- fabric-resource-conditions-api-v1 6.1.5+3434d6d95d
+	   |-- fabric-resource-loader-v0 3.3.26+4fc5413f5d
+	   |-- fabric-resource-loader-v1 3.0.4+fcdff87f5d
+	   |-- fabric-serialization-api-v1 2.0.7+74ed1ea55d
+	   |-- fabric-tag-api-v1 2.1.10+fcdff87f5d
+	   |-- fabric-transfer-api-v1 8.0.25+fcdff87f5d
+	   \-- fabric-transitive-access-wideners-v1 8.1.16+52268a0e5d
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- java 25
+	- minecraft 26.3
+[12:50:20] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/work/CreateNuclearNeoForge/CreateNuclearNeoForge/server/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+[12:50:21] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.joml.MemUtil$MemUtilUnsafe (file:/home/runner/work/CreateNuclearNeoForge/CreateNuclearNeoForge/server/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar)
+WARNING: Please consider reporting this to the maintainers of class org.joml.MemUtil$MemUtilUnsafe
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[12:50:30] [main/INFO]: [STDERR]: Failed to read config file: /home/runner/work/CreateNuclearNeoForge/CreateNuclearNeoForge/server/./config/create/server.json
+[12:50:30] [main/INFO]: [STDERR]: java.nio.file.NoSuchFileException: ./config/create/server.json
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:213)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:244)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/java.nio.file.Files.newByteChannel(Files.java:357)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/java.nio.file.Files.newByteChannel(Files.java:399)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:371)
+[12:50:30] [main/INFO]: [STDERR]: 	at java.base/java.nio.file.Files.newInputStream(Files.java:154)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//org.apache.commons.io.FileUtils.lambda$readFileToString$14(FileUtils.java:2768)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//org.apache.commons.io.IOUtils.toString(IOUtils.java:3204)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//org.apache.commons.io.IOUtils.toString(IOUtils.java:3179)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:2768)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.catnip.config.Builder.read(Builder.java:136)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.catnip.config.Builder.<init>(Builder.java:36)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.catnip.config.Builder.create(Builder.java:49)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.catnip.config.Builder.create(Builder.java:44)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.infrastructure.config.AllConfigs.register(AllConfigs.java:28)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//com.zurrtum.create.Create.onInitialize(Create.java:62)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.FabricLoaderImpl.invokeEntrypoints(FabricLoaderImpl.java:409)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.game.minecraft.Hooks.startServer(Hooks.java:63)
+[12:50:30] [main/INFO]: [STDERR]: 	at knot//net.minecraft.server.Main.main(Main.java:114)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.loader.impl.launch.server.FabricServerLauncher.main(FabricServerLauncher.java:69)
+[12:50:30] [main/INFO]: [STDERR]: 	at net.fabricmc.installer.ServerLauncher.main(ServerLauncher.java:69)
+[12:50:30] [main/INFO]: createnuclear initializing!
+[12:50:30] [main/INFO]: Registering mod tags for createnuclear
+[12:50:30] [main/INFO]: Registering ModBlocks for createnuclear
+[12:50:31] [main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[12:50:31] [Worker-Main-2/INFO]: No existing world data, creating new world
+[12:50:33] [Worker-Main-3/INFO]: Loaded 3105 advancements
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/anti_radiation_boots can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/black_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/black_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/black_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/blue_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/blue_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/blue_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/brown_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/brown_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/brown_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/cyan_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/cyan_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/cyan_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/gray_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/gray_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/gray_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/green_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/green_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/green_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_blue_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_blue_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_blue_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_gray_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_gray_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/light_gray_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/lime_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/lime_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/lime_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/magenta_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/magenta_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/magenta_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/orange_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/orange_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/orange_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/pink_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/pink_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/pink_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/purple_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/purple_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/purple_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/red_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/red_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/red_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/white_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/white_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/white_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/yellow_anti_radiation_chestplate can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/yellow_anti_radiation_helmet can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/items/armors/yellow_anti_radiation_leggings can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/reactor/reinforced_glass can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/WARN]: Recipe createnuclear:crafting/reactor_blueprint_item can't be placed due to empty ingredients and will be ignored
+[12:50:33] [main/INFO]: Applied 112 biome modifications to 56 of 67 new biomes in 8.851 ms
+[12:50:33] [Server thread/INFO]: Starting minecraft server version 26.3
+[12:50:33] [Server thread/INFO]: Loading properties
+[12:50:33] [Server thread/INFO]: Default game type: CREATIVE
+[12:50:33] [Server thread/INFO]: Generating keypair
+[12:50:33] [Server thread/INFO]: Starting Minecraft server on *:25565
+[12:50:33] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[12:50:33] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[12:50:33] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[12:50:33] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[12:50:33] [Server thread/INFO]: Preparing level "world"
+[12:50:33] [Server thread/INFO]: Selecting global world spawn...
+[12:50:37] [Server thread/INFO]: Loading 0 persistent chunks...
+[12:50:37] [Server thread/INFO]: Preparing spawn area: 100%
+[12:50:37] [Server thread/INFO]: Time elapsed: 3552 ms
+[12:50:37] [Server thread/INFO]: Done (3.809s)! For help, type "help"
+[12:50:37] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[12:50:37] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[12:50:37] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[12:50:38] [Server thread/INFO]: System chat: Game rule respawn_radius is now set to 0
+[12:50:38] [Server thread/INFO]: System chat: Game rule advance_time is now set to false
+[12:50:38] [Server thread/INFO]: System chat: Game rule spawn_mobs is now set to false
+[12:50:38] [Server thread/INFO]: System chat: Set minecraft:overworld to time marker minecraft:noon
+[12:50:42] [Server thread/INFO]: System chat: Marked 9 chunks in minecraft:overworld from [-1, -1] to [1, 1] to be force loaded
+[12:50:42] [Server thread/INFO]: System chat: Game rule max_block_modifications is now set to 2000000
+[12:50:42] [Server thread/INFO]: System chat: Successfully filled 72 block(s)
+[12:50:42] [Server thread/INFO]: System chat: Successfully filled 111 block(s)
+[12:50:42] [Server thread/INFO]: System chat: No blocks were filled
+[12:50:42] [Server thread/INFO]: System chat: Successfully filled 675 block(s)
+[12:50:42] [Server thread/INFO]: System chat: No blocks were filled
+[12:50:42] [Server thread/INFO]: System chat: Set the world spawn point to 5, 200, -7 [0.0, 0.0] in minecraft:overworld
+[12:50:42] [Server thread/INFO]: System chat: Changed the block at 0, 200, 0
+[12:50:42] [Server thread/INFO]: System chat: Changed the block at 1, 200, 0
+[12:50:42] [Server thread/INFO]: System chat: Changed the block at 2, 200, 0
+[12:50:42] [Server thread/INFO]: System chat: Changed the block at 3, 200, 0
+[12:50:42] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3409ms or 68 ticks behind
+[12:50:42] [Server thread/INFO]: System chat: Changed the block at 4, 200, 0
+[12:50:43] [Server thread/INFO]: System chat: Changed the block at 5, 200, 0
+[12:50:43] [Server thread/INFO]: System chat: Changed the block at 6, 200, 0
+[12:50:43] [Server thread/INFO]: System chat: Changed the block at 7, 200, 0
+[12:50:44] [Server thread/INFO]: System chat: Changed the block at 8, 200, 0
+[12:50:44] [Server thread/INFO]: System chat: Changed the block at 8, 201, 0
+[12:50:44] [Server thread/INFO]: System chat: Changed the block at 9, 200, 0
+[12:50:45] [Server thread/INFO]: System chat: Changed the block at 10, 200, 0
+[12:50:45] [Server thread/INFO]: System chat: Changed the block at 0, 201, 1
+[12:50:45] [Server thread/INFO]: System chat: Changed the block at 3, 201, 1
+[12:50:45] [Server thread/INFO]: System chat: Changed the block at 4, 201, 1
+[12:50:46] [Server thread/INFO]: System chat: Changed the block at 5, 201, 1
+[12:50:46] [Server thread/INFO]: System chat: Changed the block at 6, 201, 1
+[12:50:46] [Server thread/INFO]: System chat: Changed the block at 7, 201, 1
+[12:50:47] [Server thread/INFO]: System chat: Changed the block at 8, 201, 1
+[12:50:47] [Server thread/INFO]: System chat: Changed the block at 9, 201, 1
+[12:50:47] [Server thread/INFO]: System chat: Changed the block at 10, 201, 1
+[12:50:48] [Server thread/INFO]: System chat: Successfully filled 11 block(s)
+[12:50:48] [Server thread/INFO]: System chat: Successfully filled 15 block(s)
+[12:50:48] [Server thread/INFO]: System chat: Changed the block at 14, 200, 4
+[12:50:48] [Server thread/INFO]: System chat: Changed the block at 13, 200, 4
+[12:50:49] [Server thread/INFO]: System chat: Changed the block at 15, 200, 4
+[12:50:49] [Server thread/INFO]: System chat: Changed the block at 0, 200, 8
+[12:50:49] [Server thread/INFO]: System chat: Changed the block at 1, 200, 8
+[12:50:50] [Server thread/INFO]: System chat: Changed the block at 2, 199, 8
+[12:50:50] [Server thread/INFO]: System chat: Changed the block at 2, 200, 8
+[12:50:50] [Server thread/INFO]: System chat: Summoned new Yellowcake
+[12:50:51] [Server thread/INFO]: System chat: 0, 200, 0 has the following block data: {heat: 0, total: 0.0d, components: {}, x: 0, y: 200, z: 0, id: "createnuclear:reactor_controller", inventory: {Inventory: []}, configuredPattern: {}}
+[12:50:51] [Server thread/INFO]: System chat: 2, 200, 0 has the following block data: {Speed: 0.0f, components: {}, x: 2, y: 200, ScrollValue: 0, z: 0, id: "createnuclear:reactor_output"}
+[12:50:51] [Server thread/INFO]: System chat: 3, 200, 0 has the following block data: {components: {}, x: 3, y: 200, z: 0, id: "createnuclear:reactor_input", Inventory: {Inventory: [{}, {}]}}
+[12:50:51] [Server thread/INFO]: System chat: 7, 200, 0 has the following block data: {components: {}, x: 7, y: 200, z: 0, id: "createnuclear:enriching_campfire_block"}
+[12:50:52] [Server thread/INFO]: System chat: Summoned new Irradiated Wolf
+[12:50:52] [Server thread/INFO]: System chat: Summoned new Irradiated Cat
+[12:50:52] [Server thread/INFO]: System chat: Summoned new Irradiated Chicken
+[12:50:53] [Server thread/INFO]: System chat: Summoned new Irradiated Wolf
+[12:50:53] [Server thread/INFO]: System chat: Summoned new Irradiated Cat
+[12:50:53] [Server thread/INFO]: System chat: Summoned new Irradiated Chicken
+[12:50:54] [Server thread/INFO]: System chat: Summoned new Cow
+[12:50:54] [Server thread/INFO]: System chat: Summoned new Armor Stand
+[12:50:54] [Server thread/INFO]: System chat: Applied effect Radiation to Cow
+[12:50:54] [Server thread/INFO]: System chat: Placed "createnuclear:uranium_ore" at 0, 20, 0
+[12:50:55] [Server thread/INFO]: System chat: Placed "createnuclear:striated_ores_overworld" at 0, 10, 0
+[12:50:55] [Server thread/INFO]: System chat: Dropped 1 [Raw Uranium]
+[12:50:55] [Server thread/INFO]: System chat: Successfully filled 16 block(s)
+[12:50:56] [Server thread/INFO]: System chat: Changed the block at 13, 202, 8
+[12:50:56] [Server thread/INFO]: System chat: Successfully filled 16 block(s)
+[12:50:56] [Server thread/INFO]: System chat: Changed the block at 14, 201, 11
+[12:50:57] [Server thread/INFO]: System chat: Successfully filled 4 block(s)
+[12:50:57] [Server thread/INFO]: System chat: Successfully filled 4 block(s)
+[12:50:57] [Server thread/INFO]: System chat: Successfully filled 175 block(s)
+[12:50:57] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:58] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:58] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:58] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:59] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:59] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:50:59] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:51:00] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:51:00] [Server thread/INFO]: System chat: Successfully filled 5 block(s)
+[12:51:00] [Server thread/INFO]: System chat: Changed the block at 22, 203, 2
+[12:51:00] [Server thread/INFO]: System chat: Changed the block at 26, 200, 2
+[12:51:01] [Server thread/INFO]: System chat: Changed the block at 20, 201, 2
+[12:51:01] [Server thread/INFO]: System chat: Changed the block at 28, 201, 2
+[12:51:01] [Server thread/INFO]: System chat: Changed the block at -3, 200, 8
+[12:51:02] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 8 with [Awkward Potion]
+[12:51:02] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 8 with [Splash Potion of Radiation]
+[12:51:02] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 8 with [Enriched Yellowcake]
+[12:51:03] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 8 with [Blaze Powder]
+[12:51:03] [Server thread/INFO]: System chat: Changed the block at -3, 200, 10
+[12:51:03] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 10 with [Potion of Radiation]
+[12:51:04] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 10 with [Lingering Potion of Radiation]
+[12:51:04] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 10 with [Glowstone Dust]
+[12:51:04] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 10 with [Blaze Powder]
+[12:51:04] [Server thread/INFO]: System chat: Changed the block at -3, 200, 12
+[12:51:05] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 12 with [Potion of Radiation]
+[12:51:05] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 12 with [Gunpowder]
+[12:51:05] [Server thread/INFO]: System chat: Replaced 1 slot(s) at -3, 200, 12 with [Blaze Powder]
+[12:51:06] [Server thread/INFO]: System chat: The game is sprinting
+[12:51:06] [Server thread/INFO]: System chat: -3, 200, 8 has the following block data: [{components: {"minecraft:potion_contents": {potion: "createnuclear:potion_of_radiation_1"}}, count: 1, Slot: 0b, id: "minecraft:potion"}, {components: {"minecraft:potion_contents": {potion: "createnuclear:potion_of_radiation_1"}}, count: 1, Slot: 1b, id: "minecraft:splash_potion"}]
+[12:51:06] [Server thread/INFO]: System chat: Sprint completed with 1903 ticks per second, or 0.53 ms per tick
+[12:51:06] [Server thread/INFO]: System chat: -3, 200, 10 has the following block data: [{components: {"minecraft:potion_contents": {potion: "createnuclear:potion_of_radiation_2"}}, count: 1, Slot: 0b, id: "minecraft:potion"}, {components: {"minecraft:potion_contents": {potion: "createnuclear:potion_of_radiation_2"}}, count: 1, Slot: 1b, id: "minecraft:lingering_potion"}]
+[12:51:07] [Server thread/INFO]: System chat: -3, 200, 12 has the following block data: [{components: {"minecraft:potion_contents": {potion: "createnuclear:potion_of_radiation_2"}}, count: 1, Slot: 0b, id: "minecraft:splash_potion"}]
+[12:51:07] [Server thread/INFO]: System chat: Test passed
+[12:51:07] [Server thread/INFO]: System chat: Test passed. Count: 1
+[12:51:07] [Server thread/INFO]: System chat: Test failed
+[12:51:08] [Server thread/INFO]: System chat: No entity was found
+[12:51:08] [Server thread/INFO]: System chat: 1, 200, 8 has the following block data: 16.0f
+[12:51:08] [Server thread/INFO]: System chat: The target block is not a block entity
+[12:52:06] [Server thread/INFO]: Server empty for 60 seconds, pausing
+[12:52:20] [Server thread/INFO]: Player862[/127.0.0.1:36254] logged in with entity id 25 at (5.5, 200.0, -6.5)
+[12:52:20] [Server thread/INFO]: System chat: Player862 joined the game
+[12:53:04] [Server thread/INFO]: System chat: Teleported Player862 to 5.500000, 200.000000, -7.500000
+[12:53:10] [Server thread/INFO]: System chat: Irradiated Cat has the following entity data: [5.5d, 200.0d, -2.5d]
+[12:53:10] [Server thread/INFO]: System chat: Irradiated Cat has the following entity data: 10.0f
+[12:53:10] [Server thread/INFO]: System chat: Changed the block at 26, 203, 2
+[12:53:12] [Server thread/INFO]: System chat: Test passed
+[12:53:12] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Reactor Blueprint]
+[12:53:12] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Uranium Rod]
+[12:53:12] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Graphite Rod]
+[12:53:12] [Server thread/INFO]: System chat: Teleported Player862 to 5.500000, 200.000000, -7.500000
+[12:53:32] [Server thread/INFO]: System chat: Player862 has the following entity data: {components: {"createnuclear:reactor_blue_print_data": {uraniumTime: 3600, countGraphiteRod: 5, countUraniumRod: 4, pattern: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], patternAll: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], graphiteTime: 3600}}, count: 1, id: "createnuclear:reactor_blueprint_item"}
+[12:53:32] [Server thread/INFO]: System chat: Teleported Player862 to 20.500000, 202.000000, 2.500000
+[12:53:47] [Server thread/INFO]: System chat: 22, 203, 2 has the following block data: {components: {}, x: 22, y: 203, z: 2, id: "createnuclear:reactor_input", Inventory: {Inventory: [{count: 16, id: "createnuclear:uranium_rod"}, {count: 16, id: "createnuclear:graphite_rod"}]}}
+[12:53:47] [Server thread/INFO]: System chat: Teleported Player862 to 28.500000, 202.000000, 2.500000
+[12:54:00] [Server thread/INFO]: System chat: 26, 203, 2 has the following block data: {coolerItem: {count: 16, id: "createnuclear:graphite_rod"}, heat: 130, total: 1620.0d, components: {}, fuelItem: {count: 16, id: "createnuclear:uranium_rod"}, x: 26, y: 203, z: 2, id: "createnuclear:reactor_controller", inventory: {Inventory: [{components: {"createnuclear:reactor_blue_print_data": {uraniumTime: 3600, countGraphiteRod: 5, countUraniumRod: 4, pattern: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], patternAll: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], graphiteTime: 3600}}, count: 1, id: "createnuclear:reactor_blueprint_item"}]}, configuredPattern: {components: {"createnuclear:reactor_blue_print_data": {uraniumTime: 3600, countGraphiteRod: 5, countUraniumRod: 4, pattern: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], patternAll: [{slot: 0, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 1, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 2, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 3, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 4, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 5, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 6, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 7, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 8, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 9, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 10, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 11, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 12, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 13, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 14, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 15, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 16, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 17, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 18, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 19, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 20, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 21, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 22, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 23, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 24, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 25, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 26, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 27, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 28, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 29, Stack: {count: 1, id: "createnuclear:uranium_rod"}}, {slot: 30, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 31, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 32, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 33, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 34, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 35, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 36, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 37, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 38, Stack: {count: 1, id: "createnuclear:graphite_rod"}}, {slot: 39, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 40, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 41, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 42, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 43, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 44, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 45, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 46, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 47, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 48, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 49, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 50, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 51, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 52, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 53, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 54, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 55, Stack: {count: 1, id: "minecraft:glass_pane"}}, {slot: 56, Stack: {count: 1, id: "minecraft:glass_pane"}}], graphiteTime: 3600}}, count: 1, id: "createnuclear:reactor_blueprint_item"}}
+[12:54:00] [Server thread/INFO]: System chat: 26, 200, 2 has the following block data: {Speed: 32.0f, NeedsSpeedUpdate: 1b, components: {}, Network: {Capacity: 327680.0f, Size: 1, AddedCapacity: 10240.0f, Id: 7146825588936L, Stress: 0.0f}, x: 26, y: 200, ScrollValue: 0, z: 2, id: "createnuclear:reactor_output"}
+[12:54:00] [Server thread/INFO]: System chat: Test passed
+[12:54:00] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Engineer's Goggles]
+[12:54:03] [Server thread/INFO]: System chat: Teleported Player862 to 28.500000, 202.000000, 2.500000
+[12:54:07] [Server thread/INFO]: System chat: 26, 200, 2 has the following block data: {Speed: 32.0f, NeedsSpeedUpdate: 1b, components: {}, Network: {Capacity: 327680.0f, Size: 1, AddedCapacity: 10240.0f, Id: 7146825588936L, Stress: 0.0f}, x: 26, y: 200, ScrollValue: 0, z: 2, id: "createnuclear:reactor_output"}
+[12:54:07] [Server thread/INFO]: System chat: 22, 203, 2 has the following block data: {components: {}, x: 22, y: 203, z: 2, id: "createnuclear:reactor_input", Inventory: {Inventory: [{count: 16, id: "createnuclear:uranium_rod"}, {count: 16, id: "createnuclear:graphite_rod"}]}}
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Air]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Irradiated Wolf Spawn Egg]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Irradiated Cat Spawn Egg]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Irradiated Chicken Spawn Egg]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [White Anti Radiation Helmet]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Red Cloth]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Uranium Bucket]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Reactor Output]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Cut Autunite Brick Stairs]
+[12:54:07] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Reactor Frame]
+[12:54:07] [Server thread/INFO]: System chat: Teleported Player862 to 14.500000, 201.000000, 3.500000
+[12:54:11] [Server thread/INFO]: System chat: Teleported Player862 to 17.500000, 201.000000, 5.500000
+[12:54:15] [Server thread/INFO]: System chat: Replaced 1 slot(s) on Player862 with [Reactor Controller]
+[12:54:38] [Server thread/INFO]: Player862 lost connection: Disconnected
+[12:54:38] [Server thread/INFO]: System chat: Player862 left the game
+[12:54:43] [Server thread/INFO]: System chat: Stopping the server
+[12:54:43] [Server thread/INFO]: Stopping server
+[12:54:43] [Server thread/INFO]: Saving players
+[12:54:43] [Server thread/INFO]: Saving worlds
+[12:54:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[12:54:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[12:54:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+EXIT 0
