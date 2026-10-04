@@ -1,6 +1,8 @@
 cmd tp @a 5.5 200 -7.5 0 5
 sleep 5
 shot
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Pos
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Health
 cmd setblock 26 203 2 createnuclear:reactor_controller
 sleep 2
 cmd execute if block 26 203 2 createnuclear:reactor_controller[assembled=true]
@@ -44,6 +46,8 @@ shot
 key Escape
 sleep 2
 cmd data get block 22 203 2
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Pos
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Health
 cmd tp @a 28.5 202 2.5 90 0
 key 1
 sleep 4
@@ -93,3 +97,5 @@ shot
 sleep 6
 shot
 key Escape
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Pos
+cmd execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Health
