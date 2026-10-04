@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/items/armors/green_anti_radiation_leggings"
+        "recipes": "createnuclear:crafting/items/armors/green_anti_radiation_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

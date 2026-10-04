@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/items/armors/light_gray_anti_radiation_helmet"
+        "recipes": "createnuclear:crafting/items/armors/light_gray_anti_radiation_helmet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

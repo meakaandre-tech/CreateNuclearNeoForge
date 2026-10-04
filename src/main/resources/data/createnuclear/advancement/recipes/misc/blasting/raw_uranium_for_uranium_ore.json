@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:blasting/raw_uranium_for_uranium_ore"
+        "recipes": "createnuclear:blasting/raw_uranium_for_uranium_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

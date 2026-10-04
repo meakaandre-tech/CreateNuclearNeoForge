@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/cloth/blue_cloth"
+        "recipes": "createnuclear:shapeless/cloth/blue_cloth"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -2,45 +2,26 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "name": "createnuclear:enriching_campfire"
+              "name": "createnuclear:enriching_campfire",
+              "condition": "minecraft:tool/can_silk_touch"
             },
             {
               "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "createnuclear:enriched_soul_soil"
+              "name": "createnuclear:enriched_soul_soil",
+              "modifier": {
+                "type": "minecraft:explosion_decay"
+              }
             }
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "createnuclear:blocks/enriching_campfire"

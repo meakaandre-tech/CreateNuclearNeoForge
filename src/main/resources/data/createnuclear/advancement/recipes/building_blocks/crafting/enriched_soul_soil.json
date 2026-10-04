@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/enriched_soul_soil"
+        "recipes": "createnuclear:crafting/enriched_soul_soil"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/enriching_campfire"
+        "recipes": "createnuclear:crafting/enriching_campfire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

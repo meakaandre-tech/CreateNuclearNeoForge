@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/crafting/white_cloth"
+        "recipes": "createnuclear:crafting/crafting/white_cloth"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

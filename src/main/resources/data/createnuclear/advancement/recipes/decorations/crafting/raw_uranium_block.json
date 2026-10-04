@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/raw_uranium_block"
+        "recipes": "createnuclear:crafting/raw_uranium_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

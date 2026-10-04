@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/reactor_blueprint_item"
+        "recipes": "createnuclear:crafting/reactor_blueprint_item"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

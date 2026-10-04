@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:small_autunite_brick_slab_from_stone_types_autunite_stonecutting"
+        "recipes": "createnuclear:small_autunite_brick_slab_from_stone_types_autunite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

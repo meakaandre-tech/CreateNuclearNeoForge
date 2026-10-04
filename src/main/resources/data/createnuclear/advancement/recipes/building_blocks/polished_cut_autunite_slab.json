@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:polished_cut_autunite_slab"
+        "recipes": "createnuclear:polished_cut_autunite_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

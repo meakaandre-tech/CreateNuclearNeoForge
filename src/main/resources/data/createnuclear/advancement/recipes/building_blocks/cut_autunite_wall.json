@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:cut_autunite_wall"
+        "recipes": "createnuclear:cut_autunite_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

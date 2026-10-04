@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:autunite_from_stone_types_autunite_stonecutting"
+        "recipes": "createnuclear:autunite_from_stone_types_autunite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

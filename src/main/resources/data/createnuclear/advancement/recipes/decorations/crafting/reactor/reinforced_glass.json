@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/reactor/reinforced_glass"
+        "recipes": "createnuclear:crafting/reactor/reinforced_glass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/items/armors/anti_radiation_boots"
+        "recipes": "createnuclear:crafting/items/armors/anti_radiation_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

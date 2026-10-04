@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:polished_cut_autunite_stairs"
+        "recipes": "createnuclear:polished_cut_autunite_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
