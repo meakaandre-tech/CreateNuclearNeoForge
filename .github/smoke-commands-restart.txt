@@ -10,3 +10,5 @@ execute if entity @e[type=createnuclear:irradiated_chicken]
 data get entity @e[type=minecraft:armor_stand,limit=1] equipment
 tick sprint 200
 data get block 26 200 2 Speed
+execute as @e[type=createnuclear:irradiated_cat] run data get entity @s Pos
+recipe give @a createnuclear:crafting/reactor/reinforced_glass

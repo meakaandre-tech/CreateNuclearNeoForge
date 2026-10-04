@@ -169,6 +169,8 @@ jobs:
             cp server.log /tmp/ci/server.log
             if [ -f $root/.github/smoke-commands-restart.txt ] && grep -q 'Done (' server.log; then
               # second start on the saved world: checks that everything written above loads again
+              # with stand-ins for #c:ingots/lead and #c:ingots/steel (empty on the first start, as without Gunsmithing)
+              if [ -d $root/.github/smoke-datapack ]; then mkdir -p world/datapacks && cp -r $root/.github/smoke-datapack world/datapacks/smoke; fi
               rm -f in.fifo; mkfifo in.fifo
               (java -Xmx3G -jar server.jar --nogui < in.fifo > server2.log 2>&1; echo "EXIT $?" >> server2.log) &
               exec 3> in.fifo
